@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+	<title>MegaPeli</title>
+	<h:outputStylesheet library="css" name="inicio.css" />
+</h:head>
+
+<h:body styleClass="body">
+	<header> <b:navBar brandHref="#" id="dropMenuExample"
+		contentDisabled="#{navBarBean.navBarDisabled}">
+		<b:navbarLinks contentDisabled="#{navBarBean.navBarLinksDisabled}"
+			rendered="#{usuarioBean.validar.idTipoUsuario==1}">
+			<b:navLink value="Accion" href="#"></b:navLink>
+			<b:navLink value="Animación" href="#"></b:navLink>
+			<b:navLink value="Aventura" href="#"></b:navLink>
+			<b:navLink value="Ciencia Ficción" href="#"></b:navLink>
+			<b:navLink value="Comedia" href="#"></b:navLink>
+			<b:navLink value="Crimen" href="#"></b:navLink>
+			<b:navLink value="Drama" href="#"></b:navLink>
+			<b:navLink value="Fantasia" href="#"></b:navLink>
+			<b:navLink value="Misterio" href="#"></b:navLink>
+			<b:navLink value="Romantica" href="#"></b:navLink>
+			<b:navLink value="Suspenso" href="#"></b:navLink>
+			<b:navLink value="Terror" href="#"></b:navLink>
+		</b:navbarLinks>
+
+		<b:navbarLinks contentDisabled="#{navBarBean.navBarLinksDisabled}"
+			rendered="#{usuarioBean.validar.idTipoUsuario==2}">
+
+		</b:navbarLinks>
+	</b:navBar></header>
+
+
+	<ui:insert name="body"></ui:insert>
+	<footer class="page-footer font-small blue pt-4">
+	<div class="footer-copyright text-center py-3">2019- Sergio
+		Buitrago-Leyner Ortega</div>
+	</footer>
+</h:body>
+
+</html>
