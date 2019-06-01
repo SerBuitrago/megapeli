@@ -39,11 +39,11 @@
 				<h:outputText value="Iniciar Sesión" styleClass="h2" />
 			</div>
 			<div class="contenedor-input">
-				<b:inputText id="email" value="#{usuarioBean.usuario.email}"
+				<b:inputText id="email" value="#{bean1.usuario.email}"
 					placeholder="Email" styleClass="input" required="true"
 					validator="#{loginValidator.validarCorreo}"
 					requiredMessage="El campo email no puede estar vacio" />
-				<b:inputText value="#{usuarioBean.usuario.password}" id="password"
+				<b:inputText value="#{bean1.usuario.password}" id="password"
 					placeholder="Password" type="password" styleClass="input"
 					validator="#{loginValidator.validarPassword}" required="true"
 					requiredMessage=""
@@ -63,7 +63,7 @@
 					</h:outputLink>
 				</div>
 
-				<b:commandButton action="#{usuarioBean.logearse}"
+				<b:commandButton action="#{bean1.logearse}"
 					value="Iniciar Sesion" styleClass="button" />
 			</div>
 		</h:form>
@@ -80,21 +80,21 @@
 					<div class="contenedor-input">
 						<div class="contenedor-input">
 							<h:outputLabel for="emailF" value="Email:" />
-							<p:inputText id="emailF" value="#{usuarioBean.usuario.email}"
+							<p:inputText id="emailF" value="#{bean1.usuario.email}"
 								required="true" styleClass="input" label="emailF"
 								requiredMessage="El email es Obligatorio" />
 						</div>
 						<div class="contenedor-input">
 							<h:outputLabel for="passwordF" value="Password Nueva:" />
 							<p:password id="passwordF"
-								value="#{usuarioBean.usuario.password}" required="true"
+								value="#{bean1.usuario.password}" required="true"
 								styleClass="input" label="passwordF"
 								requiredMessage="Password es oblligatorio" />
 						</div>
 
 						<div class="contenedor-result text-center">
 							<p:commandButton value="Recuperar" update="errorP"
-								action="#{usuarioBean.forgotPassword}" styleClass="button"
+								action="#{bean1.forgotPassword}" styleClass="button"
 								oncomplete="handleForgotRequest(xhr, status, args)" />
 						</div>
 					</div>
@@ -115,7 +115,7 @@
 				<div class="contenedor-input">
 					<div class="contenedor-result">
 						<h:outputLabel for="nombreU" value="Nombre: " styleClass="labelI" />
-						<p:inputText id="nombreU" value="#{usuarioBean.usuario.nombre}"
+						<p:inputText id="nombreU" value="#{bean1.usuario.nombre}"
 							required="true" requiredMessage="Nombres es oblligatorio"
 							validator="#{loginValidator.validarNombreYApellido}"
 							label="nombreU" styleClass="input" />
@@ -124,14 +124,14 @@
 						<h:outputLabel for="apellidoU" value="Apellido: "
 							styleClass="labelI" />
 						<p:inputText id="apellidoU"
-							value="#{usuarioBean.usuario.apellido}" required="true"
+							value="#{bean1.usuario.apellido}" required="true"
 							requiredMessage="Apellido es oblligatorio"
 							validator="#{loginValidator.validarNombreYApellido}"
 							label="apellidoU" styleClass="input" />
 					</div>
 					<div class="contenedor-result">
 						<h:outputLabel for="emailU" value="Email: " styleClass="labelI" />
-						<p:inputText id="emailU" value="#{usuarioBean.usuario.email}"
+						<p:inputText id="emailU" value="#{bean1.usuario.email}"
 							required="true" requiredMessage="Email es oblligatorio"
 							validator="#{loginValidator.validarCorreo}" label="emailU"
 							styleClass="input" />
@@ -139,7 +139,7 @@
 					<div class="contenedor-result">
 						<h:outputLabel for="passwordU" value="Password: "
 							styleClass="labelI" />
-						<p:password id="passwordU" value="#{usuarioBean.usuario.password}"
+						<p:password id="passwordU" value="#{bean1.usuario.password}"
 							required="true" type="password" styleClass="input"
 							requiredMessage="Password es oblligatorio" />
 					</div>
@@ -148,22 +148,22 @@
 						<p:outputLabel for="userr" value="Tipo Usuario: "
 							styleClass="labelI" />
 						<p:selectOneMenu id="userr"
-							value="#{usuarioBean.usuario.idTipoUsuario}">
+							value="#{bean1.usuario.idTipoUsuario}">
 							<f:selectItem itemLabel="--- Seleccione Tipo Usuario ---"
 								itemValue="" />
-							<f:selectItems value="#{usuarioBean.usuarios}" styleClass="info" />
+							<f:selectItems value="#{bean1.tiposUsuarios}" styleClass="info" />
 						</p:selectOneMenu>
 					</div>
 					<div class="contenedor-result">
 						<p:outputLabel for="nacimiento" value="Fecha Nacimiento: "
 							styleClass="labelI" />
-						<p:inputText value="#{usuarioBean.fecha}" required="true"
+						<p:inputText value="#{bean1.fecha}" required="true"
 							type="date" requiredMessage="Fecha Nacimiento es oblligatorio"
 							id="nacimiento" styleClass="input" />
 					</div>
 					<div class="contenedor-result text-center">
 						<p:commandButton value="Registrarse" update="errorR"
-							action="#{usuarioBean.registrarse}" styleClass="button"
+							action="#{bean1.registrarse}" styleClass="button"
 							oncomplete="handleRegistroRequest(xhr, status, args)" />
 					</div>
 				</div>

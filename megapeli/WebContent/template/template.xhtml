@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -13,10 +14,10 @@
 
 <h:body styleClass="body">
 	<header> <b:navBar brandHref="#" id="dropMenuExample"
-		contentDisabled="#{navBarBean.navBarDisabled}">
-		<b:navbarLinks contentDisabled="#{navBarBean.navBarLinksDisabled}"
-			rendered="#{usuarioBean.validar.idTipoUsuario==1}">
-			<b:navLink value="Accion" href="#"></b:navLink>
+		contentDisabled="#{navBarBean.navBarDisabled}"
+		rendered="#{bean1.validar.idTipoUsuario==1}">
+		<b:navbarLinks contentDisabled="#{navBarBean.navBarLinksDisabled}">
+			<b:navLink value="Accion" href=""></b:navLink>
 			<b:navLink value="Animación" href="#"></b:navLink>
 			<b:navLink value="Aventura" href="#"></b:navLink>
 			<b:navLink value="Ciencia Ficción" href="#"></b:navLink>
@@ -29,12 +30,7 @@
 			<b:navLink value="Suspenso" href="#"></b:navLink>
 			<b:navLink value="Terror" href="#"></b:navLink>
 		</b:navbarLinks>
-
-		<b:navbarLinks contentDisabled="#{navBarBean.navBarLinksDisabled}"
-			rendered="#{usuarioBean.validar.idTipoUsuario==2}">
-
-		</b:navbarLinks>
-	</b:navBar></header>
+	</b:navBar> </header>
 
 
 	<ui:insert name="body"></ui:insert>

@@ -19,15 +19,31 @@ import com.megapeli.jpa.dao.UsuarioDAO;
 import com.megapeli.jpa.entity.Tipousuario;
 import com.megapeli.jpa.entity.Usuariop;
 
-@ManagedBean
+@ManagedBean(name = "bean1")
 @SessionScoped
 public class UsuarioBean {
 
-	Usuariop usuario = new Usuariop();
-	Usuariop validar = null;
+	private Usuariop usuario = new Usuariop();
+	private Usuariop validar = null;
 
-	String id, fecha;
-	List<SelectItem> usuarios;
+	private String id, fecha;
+	private List<SelectItem> tipousuarios;
+
+	@PostConstruct
+	public void tipoUsuario() {
+		if (tipousuarios == null) {
+			SelectItemGroup s = new SelectItemGroup("Tipo Usuario");
+			TipoUsuarioDao daoT = new TipoUsuarioDao();
+			List<Tipousuario> tipoUsuario = daoT.list();
+
+			s.setSelectItems(new SelectItem[] {
+					new SelectItem("" + tipoUsuario.get(0).getId(), "" + tipoUsuario.get(0).getDescripcion()),
+					new SelectItem("" + tipoUsuario.get(1).getId(), "" + tipoUsuario.get(1).getDescripcion()) });
+
+			tipousuarios = new ArrayList<SelectItem>();
+			tipousuarios.add(s);
+		}
+	}
 
 	public String logearse() {
 		UsuarioDAO daoU = new UsuarioDAO();
@@ -87,22 +103,6 @@ public class UsuarioBean {
 		PrimeFaces.current().ajax().addCallbackParam("loggedIn", (us != null) ? true : false);
 	}
 
-	@PostConstruct
-	public void tipoUsuario() {
-
-		SelectItemGroup s = new SelectItemGroup("Tipo Usuario");
-		TipoUsuarioDao daoT = new TipoUsuarioDao();
-		List<Tipousuario> tipoUsuario = daoT.list();
-
-		s.setSelectItems(new SelectItem[] {
-				new SelectItem("" + tipoUsuario.get(0).getId(), "" + tipoUsuario.get(0).getDescripcion()),
-				new SelectItem("" + tipoUsuario.get(1).getId(), "" + tipoUsuario.get(1).getDescripcion()) });
-
-		usuarios = new ArrayList<SelectItem>();
-		usuarios.add(s);
-
-	}
-
 	public Usuariop getUsuario() {
 		return usuario;
 	}
@@ -119,12 +119,12 @@ public class UsuarioBean {
 		this.validar = validar;
 	}
 
-	public List<SelectItem> getUsuarios() {
-		return usuarios;
+	public List<SelectItem> getTiposUsuarios() {
+		return tipousuarios;
 	}
 
-	public void setUsuarios(List<SelectItem> usuarios) {
-		this.usuarios = usuarios;
+	public void setUsuarios(List<SelectItem> tipousuarios) {
+		this.tipousuarios = tipousuarios;
 	}
 
 	public String getId() {
@@ -142,6 +142,5 @@ public class UsuarioBean {
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-	
-	
+
 }

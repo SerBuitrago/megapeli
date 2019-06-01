@@ -4,13 +4,12 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 
-
 /**
  * The persistent class for the peliculap database table.
  * 
  */
 @Entity
-@NamedQuery(name="Peliculap.findAll", query="SELECT p FROM Peliculap p")
+@NamedQuery(name = "Peliculap.findAll", query = "SELECT p FROM Peliculap p")
 public class Peliculap implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +20,8 @@ public class Peliculap implements Serializable {
 	private Date fechalanzamiento;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false, length = 1)
 	private int id;
 
 	private int idClasificacion;
@@ -31,6 +31,13 @@ public class Peliculap implements Serializable {
 	private int idGenero;
 
 	private String idioma;
+
+	private int idUsuario;
+
+	@Lob
+	private byte[] imagen;
+
+	private String link;
 
 	private String nombre;
 
@@ -96,6 +103,30 @@ public class Peliculap implements Serializable {
 
 	public void setIdioma(String idioma) {
 		this.idioma = idioma;
+	}
+
+	public int getIdUsuario() {
+		return this.idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public byte[] getImagen() {
+		return this.imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
+	public String getLink() {
+		return this.link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	public String getNombre() {

@@ -1,8 +1,342 @@
-.body {
-	background-color:#eeeeee !important;
+* {
+	padding: 0;
+	margin: 0;
 }
 
-.footer{
+.body {
+	font-family: "Ubuntu", helvetica !important;
+}
+
+.footer {
 	padding: 20px !important;
 	background-color: #eeeeee !important;
+}
+
+.contenedor-pelicula {
+	width: 80% !important;
+	overflow: hidden;
+	margin: 10px auto !important;
+	padding-bottom: 10px !important;
+}
+
+.contenedor-img-pelicula {
+	float: left !important;
+	margin-top: 10px !important;
+	margin-right: 0px !important;
+	margin-bottom: 0px !important;
+	margin-left: 55px !important;
+}
+
+.imagen-pelicula {
+	width: 200px !important;
+	height: 300px !important;
+	border-radius: 15px !important;
+}
+
+@media screen and (max-width: 1464px) {
+	.contenedor-img-pelicula {
+		margin-left: 72px !important;
+	}
+}
+
+@media screen and (max-width: 1432px) {
+	.contenedor-img-pelicula {
+		margin-left: 65px !important;
+	}
+}
+
+@media screen and (max-width: 1368px) {
+	.contenedor-img-pelicula {
+		margin-left: 55px !important;
+	}
+}
+
+@media screen and (max-width: 1304px) {
+	.contenedor-img-pelicula {
+		margin-left: 45px !important;
+	}
+}
+
+@media screen and (max-width: 1248px) {
+	.contenedor-img-pelicula {
+		margin-left: 95px !important;
+	}
+}
+
+@media screen and (max-width: 1144px) {
+	.contenedor-img-pelicula {
+		margin-left: 80px !important;
+	}
+}
+
+@media screen and (max-width: 1076px) {
+	.contenedor-img-pelicula {
+		margin-left: 60px !important;
+	}
+}
+
+@media screen and (max-width: 996px) {
+	.contenedor-img-pelicula {
+		margin-left: 40px !important;
+	}
+}
+
+@media screen and (max-width: 908px) {
+	.contenedor-img-pelicula {
+		margin-left: 110px !important;
+	}
+}
+
+@media screen and (max-width: 816px) {
+	.contenedor-img-pelicula {
+		margin-left: 80px !important;
+	}
+}
+
+@media screen and (max-width: 720px) {
+	.contenedor-img-pelicula {
+		margin-left: 50px !important;
+	}
+}
+
+@media screen and (max-width: 648px) {
+	.contenedor-pelicula {
+		overflow: none !important;
+	}
+	.contenedor-img-pelicula {
+		float: none !important;
+		margin: 0 !important;
+		margin-top: 20px !important;
+		width: 100% !important;
+	}
+	.imagen-pelicula {
+		display: block !important;
+		margin: auto !important;
+	}
+}
+
+@media screen and (max-width: 356px) {
+	.contenedor-pelicula {
+		width: 100% !important;
+	}
+}
+
+*****************************************************************************************
+.contenedor-img-seleccionada {
+	width: 90% !important;
+	margin: 10px auto !important;
+}
+
+.contenedor-pelicula2 {
+	width: 80% !important;
+	overflow: hidden;
+	margin: 10px auto !important;
+	padding-bottom: 10px !important;
+}
+
+.img {
+	float: left !important;
+	width: 400px !important;
+	height: 500px !important;
+	border-radius: 15px;
+}
+
+.contenedor-pelicula-info {
+	box-shadow: 0 4px 10px 4px rgba(19, 35, 47, .3);
+	float: left !important;
+	margin-left: 50px !important;
+	width: 550px !important;
+	border-radius: 10px;
+}
+
+.contenedor-h2 {
+	width: 100% !important;
+	padding: 15px !important;
+	background-color: red;
+	border-radius: 10px;
+}
+
+.nombrepelicula {
+	color: white;
+	font-weight: bold !important;
+	font-size: 22px !important;
+	font-weight: bold !important;
+}
+
+.contenedor-dato {
+	width: 90% !important;
+	margin: 10px auto;
+}
+
+.subtitulo {
+	font-weight: bold !important;
+	font-size: 18px !important;
+	font-style: italic;
+}
+
+.informacion {
+	padding-left: 10px;
+	font-weight: normal !important;
+	font-size: 15px !important;
+	font-weight: normal !important;
+}
+
+.contenedor-pelicula-video {
+	width: 50% !important;
+	margin: 20px auto !important;
+	border: 1px solid black !important;
+	border-radius: 10px !important;
+}
+
+.h2-pelicula {
+	padding: 10px !important;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.h2-comentarios {
+	font-size: 22px;
+	color: black;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.contenedor-comentario {
+	width: 70% !important;
+	margin: auto !important;
+	border: 1px solid black !important;
+	padding: 20px;
+	border-radius: 10px !important;
+}
+
+.comentario {
+	color: blue;
+	font-size: 22px !important;
+	text-decoration: none !important;
+}
+
+.comentario:hover {
+	color: red !important;
+	text-decoration: none !important e;
+	cursor: pointer;
+}
+
+.linkpelicula {
+	display: block !important;
+	margin: 10px auto !important;
+}
+
+.contenedor-comentarios {
+	margin-top: 15px;
+	width: 90%;
+	margin: auto;
+	padding: 10px;
+	width: 90%;
+}
+
+.comentarios {
+	margin-top: 15px;
+	padding: 10px;
+}
+
+.resultado {
+	display: inline !important;
+	margin-left: 10px;
+	font-weight: normal !important;
+}
+
+.contenedor-comentar {
+	width: 70% !important;
+	margin: auto;
+	padding: 10px;
+	margin-bottom: 20px !important;
+}
+
+.nombreUser {
+	margin-top: 10px;
+	display: block !important;
+}
+
+.espacio {
+	width: 90% !important;
+	margin: auto !important;
+	height: 100px !important;
+}
+
+.botonComentar{
+	display: block !important;
+	margin: auto !important;
+	background: red !important;
+	color: white !important;
+	padding: 10px !important;
+}
+
+.iconComentario {
+	font-size: 20px;
+}
+
+@media screen and (max-width: 1252px) {
+	.contenedor-pelicula2 {
+		overflow: none !important;
+	}
+	.contenedor-pelicula-info {
+		float: none !important;
+		margin: auto !important;
+	}
+	.img {
+		float: none !important;
+		display: block;
+		margin: 10px auto;
+	}
+}
+
+@media screen and (max-width: 928px) {
+	.contenedor-pelicula-video {
+		width: 70% !important;
+	}
+}
+
+@media screen and (max-width: 724px) {
+	.contenedor-pelicula2 {
+		width: 100% !important;
+	}
+}
+
+@media screen and (max-width: 664px) {
+	.contenedor-pelicula-video, .contenedor-comentario {
+		width: 90% !important;
+	}
+}
+
+@media screen and (max-width: 564px) {
+	.contenedor-pelicula-info {
+		width: 90% !important;
+	}
+}
+
+@media screen and (max-width: 564px) {
+	.contenedor-pelicula-info {
+		width: 100% !important;
+	}
+	.img {
+		width: 300px !important;
+		height: 400px !important;
+	}
+}
+
+@media screen and (max-width: 456px) {
+	.contenedor-pelicula-video, .contenedor-comentario {
+		width: 95% !important;
+	}
+	.contenedor-comentarios {
+		width: 95% !important;
+		padding: 5px !important;
+	}
+}
+
+@media screen and (max-width: 312px) {
+	.img {
+		width: 100% !important;
+		height: auto !important;
+	}
 }

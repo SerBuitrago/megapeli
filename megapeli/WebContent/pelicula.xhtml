@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="body">
+		<div class="contenedor-pelicula2">
+			<h:graphicImage value="https://i.blogs.es/87f71c/padial/450_1000.jpg"
+				styleClass="img" />
+			<div class="contenedor-pelicula-info">
+				<div class="text-center contenedor-h2">
+					<h:outputText value="Feliz dia de tu muerte 2"
+						styleClass="nombrepelicula" />
+				</div>
+				<div class="contenedor-dato">
+					<h:outputLabel value="Sinopsis: " styleClass="subtitulo" />
+					<h:outputLabel
+						value="Carol Danvers se convierte en uno los héroes más poderosos del universo cuando la 
+					Tierra queda atrapada en medio de una guerra galáctica entre dos razas alienígenas.
+                    Universo Marvel "
+						styleClass="informacion" />
+				</div>
+				<div class="contenedor-dato">
+					<h:outputLabel value="Genero: " styleClass="subtitulo" />
+					<h:outputLabel value="Acción " styleClass="informacion" />
+				</div>
+				<div class="contenedor-dato">
+					<h:outputLabel value="Audio: " styleClass="subtitulo" />
+					<h:outputLabel value="Español " styleClass="informacion" />
+				</div>
+				<div class="contenedor-dato">
+					<h:outputLabel value="Calidad: " styleClass="subtitulo" />
+					<h:outputLabel value="Full Hd" styleClass="informacion" />
+				</div>
+				<div class="contenedor-dato">
+					<h:outputLabel value="Director: " styleClass="subtitulo" />
+					<h:outputLabel value="Anna Boden, Ryan Fleck "
+						styleClass="informacion" />
+				</div>
+				<div class="contenedor-dato">
+					<h:outputLabel value="Actores: " styleClass="subtitulo" />
+					<h:outputLabel
+						value="Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Jude Law,
+					 Annette Bening, Lashana Lynch, Clark Gregg, Rune Temte,
+					  Gemma Chan, Algenis Perez Soto"
+						styleClass="informacion" />
+				</div>
+			</div>
+		</div>
+		<div class="contenedor-pelicula-video text-center">
+			<h:outputLabel value="Ver Pelicula " styleClass="h2-pelicula" />
+			<iframe width="90%" height="360" frameborder="0"
+				src="https://mega.nz/embed#!cHAwRAbI!Ql7fUMhzUG6ZHILhFG3P9lyUsd_UG5rFV542prLNixg"
+				class="linkpelicula"></iframe>
+		</div>
+		<div class="contenedor-comentario">
+			<h:outputLink onclick="PF('dlgComentar').show();"
+				title="añada un comentario :)" styleClass="comentario"
+				value="javascript:void(0)"> ¿Quieres añadir un comentario? </h:outputLink>
+			<div class="contenedor-comentarios">
+					<h:outputLabel value="Comentarios publicados..." styleClass="h2-comentarios" />
+				<div class="comentarios">
+					<b:iconAwesome value="newspaper-o" styleClass="iconComentario" />
+					<h:outputLabel value="Esta pelicula es muy buenaaa!!"
+						styleClass="resultado" />
+				</div>
+				<div class="comentarios">
+					<b:iconAwesome value="newspaper-o" styleClass="iconComentario" />
+					<h:outputLabel value="Esta pelicula es muy buenaaa!!"
+						styleClass="resultado" />
+				</div>
+				<div class="comentarios">
+					<b:iconAwesome value="newspaper-o" styleClass="iconComentario" />
+					<h:outputLabel value="Esta pelicula es muy buenaaa!!"
+						styleClass="resultado" />
+				</div>
+				<div class="comentarios">
+					<b:iconAwesome value="newspaper-o" styleClass="iconComentario" />
+					<h:outputLabel
+						value="El título en inglés del póster parece haber sido especialmente diseñado y no se 
+						trata de ninguna fuente. Para encontrar fuentes que se asemejen un poco al título de la
+						 película, podrías darle un vistazo a las fuentes de caricaturas o cómics en myfonts.com. 
+						 En cuanto a las fuentes gratuitas que son similares al título de la película, la fuente más
+						  parecida que podemos encontrar es la Carton Six diseñada por Jayvee D. Puedes descargarla 
+						  gratis"
+						styleClass="resultado" />
+				</div>
+			</div>
+		</div>
+
+
+		<p:dialog header="comentar" widgetVar="dlgComentar"
+			showEffect="explode" hideEffect="explode" modal="true"
+			styleClass="dialog">
+			<p:growl id="errorP" sticky="true" showDetail="true" life="3000" />
+			<div class="contenedor-comentar">
+				<h:form>
+					<h:outputLabel value="Sergio Buitrago :" styleClass="nombreUser" />
+					<h:inputTextarea styleClass="espacio" />
+					<h:commandButton value="Comentar" styleClass="botonComentar"></h:commandButton>
+				</h:form>
+			</div>
+		</p:dialog>
+		<style type="text/css">
+.dialog {
+	width: 40% !important;
+	height: 290px !important;
+	margin: auto !important;
+}
+</style>
+	</ui:define>
+</ui:composition>
+</html>
