@@ -3,7 +3,6 @@ package com.megapeli.jpa.bean;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -11,9 +10,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
-
 import org.primefaces.PrimeFaces;
-
 import com.megapeli.jpa.dao.TipoUsuarioDao;
 import com.megapeli.jpa.dao.UsuarioDAO;
 import com.megapeli.jpa.entity.Tipousuario;
@@ -24,38 +21,48 @@ import com.megapeli.jpa.entity.Usuariop;
 public class UsuarioBean {
 
 	private Usuariop usuario = new Usuariop();
-	private Usuariop validar = null;
+	private Usuariop validado = null;
 
-	private String id, fecha;
+	private String fecha;
 	private List<SelectItem> tipousuarios;
 
 	@PostConstruct
 	public void tipoUsuario() {
 		if (tipousuarios == null) {
+			tipousuarios = new ArrayList<SelectItem>();
 			SelectItemGroup s = new SelectItemGroup("Tipo Usuario");
 			TipoUsuarioDao daoT = new TipoUsuarioDao();
 			List<Tipousuario> tipoUsuario = daoT.list();
-
-			s.setSelectItems(new SelectItem[] {
-					new SelectItem("" + tipoUsuario.get(0).getId(), "" + tipoUsuario.get(0).getDescripcion()),
-					new SelectItem("" + tipoUsuario.get(1).getId(), "" + tipoUsuario.get(1).getDescripcion()) });
-
-			tipousuarios = new ArrayList<SelectItem>();
+			SelectItem[] items= new SelectItem[tipoUsuario.size()];
+			for(int i=0; i<tipoUsuario.size(); i++){
+				items[i]=new SelectItem("" + tipoUsuario.get(i).getId(), "" + tipoUsuario.get(i).getDescripcion());
+				
+			}
+			s.setSelectItems(items);
 			tipousuarios.add(s);
 		}
 	}
 
 	public String logearse() {
-		UsuarioDAO daoU = new UsuarioDAO();
-		this.validar = null;
-		Usuariop us = daoU.findByField("email", usuario.getEmail());
-		if (us != null) {
-			if (usuario.getPassword().contentEquals(us.getPassword())) {
-				this.validar = us;
-				return "inicio";
+		if (validado == null) {
+			FacesMessage message = null;
+			UsuarioDAO daoU = new UsuarioDAO();
+
+			Usuariop us = daoU.findByField("email", usuario.getEmail());
+			if (us != null) {
+				if (usuario.getPassword().contentEquals(us.getPassword())) {
+					this.validado = us;
+                    this.usuario= new Usuariop();					
+					return "inicio?faces-redirect=true";
+				} else {
+					message = new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Contraseña Incorrecta");
+				}
+			} else {
+				message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "REGISTRASE", "Usuario No existe");
 			}
+			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
-		return "login";
+		return "login?faces-redirect=true";
 	}
 
 	public String registrarse() {
@@ -73,6 +80,7 @@ public class UsuarioBean {
 			String fechaactual = annio + "-" + mes + "-" + dia;
 			usuario.setFechaRegistro(java.sql.Date.valueOf(fechaactual));
 			daoU.insert(usuario);
+			this.usuario= new Usuariop();
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success",
 					"Te registrarse correctamente ahora inicia sesion");
 		} else {
@@ -80,7 +88,7 @@ public class UsuarioBean {
 		}
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		PrimeFaces.current().ajax().addCallbackParam("loggeddIn", (us != null) ? true : false);
-		return "login";
+		return "logi?faces-redirect=truen";
 	}
 
 	public void forgotPassword() {
@@ -91,6 +99,7 @@ public class UsuarioBean {
 			if (usuario.getPassword().length() >= 10) {
 				us.setPassword(usuario.getPassword());
 				daoU.update(us);
+				this.usuario= new Usuariop();
 				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success",
 						"Cambiaste Correctamente la contraseña");
 			} else {
@@ -103,6 +112,9 @@ public class UsuarioBean {
 		PrimeFaces.current().ajax().addCallbackParam("loggedIn", (us != null) ? true : false);
 	}
 
+	/////////////////////////////////////////////// GETTER Y SETTERS
+	/////////////////////////////////////////////// ///////////////////////////
+
 	public Usuariop getUsuario() {
 		return usuario;
 	}
@@ -111,12 +123,12 @@ public class UsuarioBean {
 		this.usuario = usuario;
 	}
 
-	public Usuariop getValidar() {
-		return validar;
+	public Usuariop getValidado() {
+		return validado;
 	}
 
-	public void setValidar(Usuariop validar) {
-		this.validar = validar;
+	public void setValidado(Usuariop validado) {
+		this.validado = validado;
 	}
 
 	public List<SelectItem> getTiposUsuarios() {
@@ -127,14 +139,6 @@ public class UsuarioBean {
 		this.tipousuarios = tipousuarios;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getFecha() {
 		return fecha;
 	}
@@ -143,4 +147,13 @@ public class UsuarioBean {
 		this.fecha = fecha;
 	}
 
+	public List<SelectItem> getTipousuarios() {
+		return tipousuarios;
+	}
+
+	public void setTipousuarios(List<SelectItem> tipousuarios) {
+		this.tipousuarios = tipousuarios;
+	}
+	
+	
 }

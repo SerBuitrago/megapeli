@@ -8,36 +8,31 @@
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
 		<div class="contenedor-pelicula2">
-			<h:graphicImage value="https://i.blogs.es/87f71c/padial/450_1000.jpg"
-				styleClass="img" />
+			<p:graphicImage value="#{bean2.selecionada.foto}" styleClass="img" />
 			<div class="contenedor-pelicula-info">
 				<div class="text-center contenedor-h2">
-					<h:outputText value="Feliz dia de tu muerte 2"
-						styleClass="nombrepelicula" />
+					<h:outputText value="#{bean2.selecionada.pelicula.nombre}" styleClass="nombrepelicula" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Sinopsis: " styleClass="subtitulo" />
-					<h:outputLabel
-						value="Carol Danvers se convierte en uno los héroes más poderosos del universo cuando la 
-					Tierra queda atrapada en medio de una guerra galáctica entre dos razas alienígenas.
-                    Universo Marvel "
+					<h:outputLabel value="#{bean2.selecionada.pelicula.sinopsis} "
 						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Genero: " styleClass="subtitulo" />
-					<h:outputLabel value="Acción " styleClass="informacion" />
+					<h:outputLabel value="#{bean2.selecionada.pelicula.idGenero} " styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Audio: " styleClass="subtitulo" />
-					<h:outputLabel value="Español " styleClass="informacion" />
+					<h:outputLabel value="#{bean2.selecionada.pelicula.idioma} " styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Calidad: " styleClass="subtitulo" />
-					<h:outputLabel value="Full Hd" styleClass="informacion" />
+					<h:outputLabel value="#{bean2.selecionada.pelicula.calidad}" styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Director: " styleClass="subtitulo" />
-					<h:outputLabel value="Anna Boden, Ryan Fleck "
+					<h:outputLabel value="#{bean2.selecionada.pelicula.idDirector}"
 						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
@@ -61,7 +56,8 @@
 				title="añada un comentario :)" styleClass="comentario"
 				value="javascript:void(0)"> ¿Quieres añadir un comentario? </h:outputLink>
 			<div class="contenedor-comentarios">
-					<h:outputLabel value="Comentarios publicados..." styleClass="h2-comentarios" />
+				<h:outputLabel value="Comentarios publicados..."
+					styleClass="h2-comentarios" />
 				<div class="comentarios">
 					<b:iconAwesome value="newspaper-o" styleClass="iconComentario" />
 					<h:outputLabel value="Esta pelicula es muy buenaaa!!"
@@ -111,6 +107,7 @@
 	margin: auto !important;
 }
 </style>
+		<h:outputStylesheet library="css" name="pelicula.css" />
 	</ui:define>
 </ui:composition>
 </html>

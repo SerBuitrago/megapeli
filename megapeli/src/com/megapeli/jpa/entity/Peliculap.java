@@ -40,7 +40,9 @@ public class Peliculap implements Serializable {
 	private String link;
 
 	private String nombre;
-
+	
+	
+	
 	private String pais;
 
 	@Lob
@@ -152,5 +154,4 @@ public class Peliculap implements Serializable {
 	public void setSinopsis(String sinopsis) {
 		this.sinopsis = sinopsis;
 	}
-
 }

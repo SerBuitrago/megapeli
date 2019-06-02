@@ -1,10 +1,7 @@
 * {
 	padding: 0;
 	margin: 0;
-}
-
-.body {
-	font-family: "Ubuntu", helvetica !important;
+	font-family: sans-serif !important;
 }
 
 .footer {
@@ -13,32 +10,269 @@
 }
 
 .contenedor-pelicula {
-	width: 80% !important;
+	width: 80%;
+	margin: 20px auto;
+	padding-bottom: 10px;
+	background-color: #F4EEEC;
+	padding-left: 10px;
+	border-radius: 15px;
 	overflow: hidden;
-	margin: 10px auto !important;
-	padding-bottom: 10px !important;
+	padding-bottom: 20px;
 }
 
-.contenedor-img-pelicula {
-	float: left !important;
-	margin-top: 10px !important;
-	margin-right: 0px !important;
-	margin-bottom: 0px !important;
-	margin-left: 55px !important;
+.contenedor-link-pelicula {
+	float: left;
+	width: 200px;
+	margin-left: 25px;
+	margin-top: 20px;
+	border-radius: 15px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	height: 300px;
+	overflow: hidden;
+	position: relative;
+	cursor: pointer;
+	transition: all 300ms;
 }
 
-.imagen-pelicula {
-	width: 200px !important;
-	height: 300px !important;
-	border-radius: 15px !important;
+.contenedor-link-pelicula:hover {
+	box-shadow: 0px 0px 30px -5px black;
 }
 
-@media screen and (max-width: 1464px) {
-	.contenedor-img-pelicula {
-		margin-left: 72px !important;
+.contenedor-link-pelicula .imagen-pelicula {
+	width: 200px;
+	height: 300px;
+	transition: all 300ms;
+}
+
+.contenedor-link-pelicula:hover .imagen-pelicula {
+	transform: scale(1.6) rotate(10deg);
+}
+
+.contenedor-link-pelicula .cabezera-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0);
+	color: white;
+	z-index: 2;
+	transition: all 600ms cubic-bezier(1, 0, 0, 1);
+	border: 2px solid white;
+	background: black;
+	padding: 6px;
+	width: 80%;
+	font-size: 15px !important;
+	border-radius: 10px;
+	text-align: center;
+	font-style: italic;
+}
+
+.contenedor-link-pelicula:hover .cabezera-text {
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.contenedor-link-pelicula:before, .contenedor-link-pelicula:after {
+	content: '';
+	width: 200px;
+	height: 400px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: black;
+	opacity: 0.6;
+	transition: all 600ms cubic-bezier(1, 0, 0, 1);
+	border: 4px solid white;
+	z-index: 1;
+	border-radius: 10px;
+}
+
+.contenedor-link-pelicula:before {
+	transform: rotate(45deg) translateY(-550px) translateX(0px);
+}
+
+.contenedor-link-pelicula:after {
+	transform: rotate(45deg) translateY(550px) translateX(-60px);
+}
+
+.contenedor-link-pelicula:hover:before {
+	transform: rotate(45deg) translateY(-240px) translateX(0px);
+}
+
+.contenedor-link-pelicula:hover:after {
+	transform: rotate(45deg) translateY(180px) translateX(-80px);
+}
+
+
+/*@media screen and (max-width: 1440px) {
+	.contenedor-link-pelicula {
+		margin-left: 35px !important;
 	}
 }
 
+@media screen and (max-width: 1280px) {
+	.contenedor-link-pelicula {
+		margin-left: 65px !important;
+	}
+}
+
+@media screen and (max-width: 1084px) {
+	.contenedor-link-pelicula {
+		margin-left: 65px !important;
+	}
+}
+
+/*@media screen and (max-width: 1464px) {
+	.contenedor-link-pelicula {
+		margin-left: 40px !important;
+	}
+}
+
+@media screen and (max-width: 1440px) {
+	.contenedor-link-pelicula {
+		margin-left: 35px !important;
+	}
+}
+
+
+@media screen and (max-width: 1360px) {
+	.contenedor-link-pelicula {
+		margin-left: 25px !important;
+	}
+}
+
+@media screen and (max-width: 1316px) {
+	.contenedor-pelicula {
+	  width: 60%;
+	}
+	
+	.contenedor-link-pelicula {
+		margin-left: 40px !important;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.contenedor-link-pelicula {
+		margin-left: 35px !important;
+	}
+}
+
+@media screen and (max-width: 1244px) {
+	.contenedor-pelicula {
+	  width: 80%;
+	}
+	
+	.contenedor-link-pelicula {
+		margin-left: 35px !important;
+	}
+}
+
+@media screen and (max-width: 1204px) {
+	.contenedor-link-pelicula {
+		margin-left: 60px !important;
+	}
+	
+	.contenedor-pelicula {
+	  width: 70%;
+	}
+}
+
+@media screen and (max-width: 1152px) {
+	.contenedor-pelicula {
+	  width: 90%;
+	}
+	
+	.contenedor-link-pelicula {
+		margin-left: 40px !important;
+	}
+}
+
+@media screen and (max-width: 1076px) {
+	.contenedor-pelicula {
+	  width: 80%;
+	}
+	
+	.contenedor-link-pelicula {
+		margin-left: 60px !important;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.contenedor-link-pelicula {
+		margin-left: 50px !important;
+	}
+}
+
+@media screen and (max-width: 1012px) {
+	.contenedor-pelicula {
+	  width: 90%;
+	}
+	
+	.contenedor-link-pelicula {
+		margin-left: 75px !important;
+	}
+}
+
+@media screen and (max-width: 962px) {
+	.contenedor-link-pelicula {
+		margin-left: 55px;
+	}
+}
+
+/*
+@media screen and (max-width: 1092px) {
+	.contenedor-pelicula {
+	   width: 70%;
+	}
+	
+	.contenedor-link-pelicula {
+	   float: none;
+	   display: block;
+	}
+	
+}
+
+/*@media screen and (max-width: 1408px) {
+	.contenedor-link-pelicula {
+		margin-left: 90px !important;
+	}
+}
+
+@media screen and (max-width: 1348px) {
+	.contenedor-pelicula {
+	  width: 80%;
+	}
+	
+	.contenedor-link-pelicula {
+		margin-left: 50px !important;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.contenedor-link-pelicula {
+		margin-left: 100px !important;
+	}
+}
+
+
+@media screen and (max-width: 1160px) {
+	.contenedor-pelicula {
+	  width: 70%;
+	}
+	
+	.contenedor-link-pelicula {
+		margin-left: 130px !important;
+	}
+}
+
+@media screen and (max-width: 1028px) {
+  .contenedor-link-pelicula {
+	float: none;
+	display: block;
+  }
+
+}
+
+/*
 @media screen and (max-width: 1432px) {
 	.contenedor-img-pelicula {
 		margin-left: 65px !important;
@@ -119,224 +353,4 @@
 	.contenedor-pelicula {
 		width: 100% !important;
 	}
-}
-
-*****************************************************************************************
-.contenedor-img-seleccionada {
-	width: 90% !important;
-	margin: 10px auto !important;
-}
-
-.contenedor-pelicula2 {
-	width: 80% !important;
-	overflow: hidden;
-	margin: 10px auto !important;
-	padding-bottom: 10px !important;
-}
-
-.img {
-	float: left !important;
-	width: 400px !important;
-	height: 500px !important;
-	border-radius: 15px;
-}
-
-.contenedor-pelicula-info {
-	box-shadow: 0 4px 10px 4px rgba(19, 35, 47, .3);
-	float: left !important;
-	margin-left: 50px !important;
-	width: 550px !important;
-	border-radius: 10px;
-}
-
-.contenedor-h2 {
-	width: 100% !important;
-	padding: 15px !important;
-	background-color: red;
-	border-radius: 10px;
-}
-
-.nombrepelicula {
-	color: white;
-	font-weight: bold !important;
-	font-size: 22px !important;
-	font-weight: bold !important;
-}
-
-.contenedor-dato {
-	width: 90% !important;
-	margin: 10px auto;
-}
-
-.subtitulo {
-	font-weight: bold !important;
-	font-size: 18px !important;
-	font-style: italic;
-}
-
-.informacion {
-	padding-left: 10px;
-	font-weight: normal !important;
-	font-size: 15px !important;
-	font-weight: normal !important;
-}
-
-.contenedor-pelicula-video {
-	width: 50% !important;
-	margin: 20px auto !important;
-	border: 1px solid black !important;
-	border-radius: 10px !important;
-}
-
-.h2-pelicula {
-	padding: 10px !important;
-	font-size: 22px;
-	font-weight: bold;
-}
-
-.h2-comentarios {
-	font-size: 22px;
-	color: black;
-	font-weight: bold;
-	font-style: italic;
-}
-
-.contenedor-comentario {
-	width: 70% !important;
-	margin: auto !important;
-	border: 1px solid black !important;
-	padding: 20px;
-	border-radius: 10px !important;
-}
-
-.comentario {
-	color: blue;
-	font-size: 22px !important;
-	text-decoration: none !important;
-}
-
-.comentario:hover {
-	color: red !important;
-	text-decoration: none !important e;
-	cursor: pointer;
-}
-
-.linkpelicula {
-	display: block !important;
-	margin: 10px auto !important;
-}
-
-.contenedor-comentarios {
-	margin-top: 15px;
-	width: 90%;
-	margin: auto;
-	padding: 10px;
-	width: 90%;
-}
-
-.comentarios {
-	margin-top: 15px;
-	padding: 10px;
-}
-
-.resultado {
-	display: inline !important;
-	margin-left: 10px;
-	font-weight: normal !important;
-}
-
-.contenedor-comentar {
-	width: 70% !important;
-	margin: auto;
-	padding: 10px;
-	margin-bottom: 20px !important;
-}
-
-.nombreUser {
-	margin-top: 10px;
-	display: block !important;
-}
-
-.espacio {
-	width: 90% !important;
-	margin: auto !important;
-	height: 100px !important;
-}
-
-.botonComentar{
-	display: block !important;
-	margin: auto !important;
-	background: red !important;
-	color: white !important;
-	padding: 10px !important;
-}
-
-.iconComentario {
-	font-size: 20px;
-}
-
-@media screen and (max-width: 1252px) {
-	.contenedor-pelicula2 {
-		overflow: none !important;
-	}
-	.contenedor-pelicula-info {
-		float: none !important;
-		margin: auto !important;
-	}
-	.img {
-		float: none !important;
-		display: block;
-		margin: 10px auto;
-	}
-}
-
-@media screen and (max-width: 928px) {
-	.contenedor-pelicula-video {
-		width: 70% !important;
-	}
-}
-
-@media screen and (max-width: 724px) {
-	.contenedor-pelicula2 {
-		width: 100% !important;
-	}
-}
-
-@media screen and (max-width: 664px) {
-	.contenedor-pelicula-video, .contenedor-comentario {
-		width: 90% !important;
-	}
-}
-
-@media screen and (max-width: 564px) {
-	.contenedor-pelicula-info {
-		width: 90% !important;
-	}
-}
-
-@media screen and (max-width: 564px) {
-	.contenedor-pelicula-info {
-		width: 100% !important;
-	}
-	.img {
-		width: 300px !important;
-		height: 400px !important;
-	}
-}
-
-@media screen and (max-width: 456px) {
-	.contenedor-pelicula-video, .contenedor-comentario {
-		width: 95% !important;
-	}
-	.contenedor-comentarios {
-		width: 95% !important;
-		padding: 5px !important;
-	}
-}
-
-@media screen and (max-width: 312px) {
-	.img {
-		width: 100% !important;
-		height: auto !important;
-	}
-}
+}*/

@@ -32,45 +32,47 @@
 			}
 		}
 	</script>
+	<b:container styleClass="contenedor-padre">
+		<div class="contenedor-formulario">
+			<h:form styleClass="text-center">
+				<p:growl id="errorL" sticky="true" showDetail="true" life="3000" />
+				<div class="contenedor-h2">
+					<h:outputText value="Iniciar Sesión" styleClass="h2" />
+				</div>
+				<div class="contenedor-input">
+					<b:inputText id="email" value="#{bean1.usuario.email}"
+						placeholder="Email" styleClass="input" required="true"
+						validator="#{loginValidator.validarCorreo}"
+						requiredMessage="El campo email no puede estar vacio" />
+					<b:inputText value="#{bean1.usuario.password}" id="password"
+						placeholder="Password" type="password" styleClass="input"
+						validator="#{loginValidator.validarPassword}" required="true"
+						requiredMessage=""
+						required-message="El campo password tiene no puede estar vacio" />
 
-	<div class="contenedor-formulario">
-		<h:form styleClass="text-center">
-			<div class="contenedor-h2">
-				<h:outputText value="Iniciar Sesión" styleClass="h2" />
-			</div>
-			<div class="contenedor-input">
-				<b:inputText id="email" value="#{bean1.usuario.email}"
-					placeholder="Email" styleClass="input" required="true"
-					validator="#{loginValidator.validarCorreo}"
-					requiredMessage="El campo email no puede estar vacio" />
-				<b:inputText value="#{bean1.usuario.password}" id="password"
-					placeholder="Password" type="password" styleClass="input"
-					validator="#{loginValidator.validarPassword}" required="true"
-					requiredMessage=""
-					required-message="El campo password tiene no puede estar vacio" />
-
-				<div class="contenedor-forgot">
-					<h:outputLink value="javascript:void(0)"
-						onclick="PF('dlgForgot').show();" title="dlg" styleClass="forgot">
+					<div class="contenedor-forgot">
+						<h:outputLink value="javascript:void(0)"
+							onclick="PF('dlgForgot').show();" title="Recuperar"
+							styleClass="forgot">
 						    ¿Olvidaste la Contraseña?
 					     </h:outputLink>
+					</div>
+
+					<div class="contenedor-forgot">
+						<h:outputLink value="javascript:void(0)" styleClass="forgot"
+							onclick="PF('dlgRegistro').show();" title="Registrarse">
+						    No tienes cuenta Registrase!
+					    </h:outputLink>
+					</div>
+					<b:commandButton action="#{bean1.logearse}" value="Iniciar Sesion"
+						styleClass="button" update="errorL" />
 				</div>
+			</h:form>
+		</div>
+	
 
-				<div class="contenedor-forgot">
-					<h:outputLink value="javascript:void(0)" styleClass="forgot"
-						onclick="PF('dlgRegistro').show();" title="dlgs">
-						No tienes cuenta Registrase!
-					</h:outputLink>
-				</div>
-
-				<b:commandButton action="#{bean1.logearse}"
-					value="Iniciar Sesion" styleClass="button" />
-			</div>
-		</h:form>
-	</div>
-
-	<p:dialog header="forgot" widgetVar="dlgForgot" showEffect="explode" hideEffect="explode" modal="true"
-		styleClass="dialog">
+		<p:dialog header="forgot" widgetVar="dlgForgot" showEffect="explode"
+			hideEffect="explode" modal="true" styleClass="dialog">
 			<p:growl id="errorP" sticky="true" showDetail="true" life="3000" />
 			<div class="contenedor-formulario-registro">
 				<h:form>
@@ -86,9 +88,8 @@
 						</div>
 						<div class="contenedor-input">
 							<h:outputLabel for="passwordF" value="Password Nueva:" />
-							<p:password id="passwordF"
-								value="#{bean1.usuario.password}" required="true"
-								styleClass="input" label="passwordF"
+							<p:password id="passwordF" value="#{bean1.usuario.password}"
+								required="true" styleClass="input" label="passwordF"
 								requiredMessage="Password es oblligatorio" />
 						</div>
 
@@ -100,76 +101,74 @@
 					</div>
 				</h:form>
 			</div>
-	</p:dialog>
+		</p:dialog>
+		<p:dialog header="registro" widgetVar="dlgRegistro"
+			showEffect="explode" hideEffect="explode" modal="true"
+			styleClass="dialog">
+			<div class="contenedor-formulario-registro">
+				<h:form>
+					<div class="contenedor-h2 text-center">
+						<h:outputText value="Registrarse" styleClass="h2" />
+					</div>
+					<p:growl id="errorR" sticky="true" showDetail="true" life="3000" />
+					<div class="contenedor-input">
+						<div class="contenedor-result">
+							<h:outputLabel for="nombreU" value="Nombre: " styleClass="labelI" />
+							<p:inputText id="nombreU" value="#{bean1.usuario.nombre}"
+								required="true" requiredMessage="Nombres es oblligatorio"
+								validator="#{loginValidator.validarNombreYApellido}"
+								label="nombreU" styleClass="input" />
+						</div>
+						<div class="contenedor-result">
+							<h:outputLabel for="apellidoU" value="Apellido: "
+								styleClass="labelI" />
+							<p:inputText id="apellidoU" value="#{bean1.usuario.apellido}"
+								required="true" requiredMessage="Apellido es oblligatorio"
+								validator="#{loginValidator.validarNombreYApellido}"
+								label="apellidoU" styleClass="input" />
+						</div>
+						<div class="contenedor-result">
+							<h:outputLabel for="emailU" value="Email: " styleClass="labelI" />
+							<p:inputText id="emailU" value="#{bean1.usuario.email}"
+								required="true" requiredMessage="Email es oblligatorio"
+								validator="#{loginValidator.validarCorreo}" label="emailU"
+								styleClass="input" />
+						</div>
+						<div class="contenedor-result">
+							<h:outputLabel for="passwordU" value="Password: "
+								styleClass="labelI" />
+							<p:password id="passwordU" value="#{bean1.usuario.password}"
+								required="true" type="password" styleClass="input"
+								requiredMessage="Password es oblligatorio" />
+						</div>
 
-
-	<p:dialog header="registro" widgetVar="dlgRegistro"
-		showEffect="explode" hideEffect="explode" modal="true"
-		styleClass="dialog">
-		<div class="contenedor-formulario-registro">
-			<h:form>
-				<div class="contenedor-h2 text-center">
-					<h:outputText value="Registrarse" styleClass="h2" />
-				</div>
-				<p:growl id="errorR" sticky="true" showDetail="true" life="3000" />
-				<div class="contenedor-input">
-					<div class="contenedor-result">
-						<h:outputLabel for="nombreU" value="Nombre: " styleClass="labelI" />
-						<p:inputText id="nombreU" value="#{bean1.usuario.nombre}"
-							required="true" requiredMessage="Nombres es oblligatorio"
-							validator="#{loginValidator.validarNombreYApellido}"
-							label="nombreU" styleClass="input" />
+						<div class="contenedor-result">
+							<p:outputLabel for="userr" value="Tipo Usuario: "
+								styleClass="labelI" />
+							<p:selectOneMenu id="userr"
+								value="#{bean1.usuario.idTipoUsuario}">
+								<f:selectItem itemLabel="--- Seleccione Tipo Usuario ---"
+									itemValue="" />
+								<f:selectItems value="#{bean1.tiposUsuarios}" styleClass="info" />
+							</p:selectOneMenu>
+						</div>
+						<div class="contenedor-result">
+							<p:outputLabel for="nacimiento" value="Fecha Nacimiento: "
+								styleClass="labelI" />
+							<p:inputText value="#{bean1.fecha}" required="true" type="date"
+								requiredMessage="Fecha Nacimiento es oblligatorio"
+								id="nacimiento" styleClass="input" />
+						</div>
+						<div class="contenedor-result text-center">
+							<p:commandButton value="Registrarse" update="errorR"
+								action="#{bean1.registrarse}" styleClass="button"
+								oncomplete="handleRegistroRequest(xhr, status, args)" />
+						</div>
 					</div>
-					<div class="contenedor-result">
-						<h:outputLabel for="apellidoU" value="Apellido: "
-							styleClass="labelI" />
-						<p:inputText id="apellidoU"
-							value="#{bean1.usuario.apellido}" required="true"
-							requiredMessage="Apellido es oblligatorio"
-							validator="#{loginValidator.validarNombreYApellido}"
-							label="apellidoU" styleClass="input" />
-					</div>
-					<div class="contenedor-result">
-						<h:outputLabel for="emailU" value="Email: " styleClass="labelI" />
-						<p:inputText id="emailU" value="#{bean1.usuario.email}"
-							required="true" requiredMessage="Email es oblligatorio"
-							validator="#{loginValidator.validarCorreo}" label="emailU"
-							styleClass="input" />
-					</div>
-					<div class="contenedor-result">
-						<h:outputLabel for="passwordU" value="Password: "
-							styleClass="labelI" />
-						<p:password id="passwordU" value="#{bean1.usuario.password}"
-							required="true" type="password" styleClass="input"
-							requiredMessage="Password es oblligatorio" />
-					</div>
-
-					<div class="contenedor-result">
-						<p:outputLabel for="userr" value="Tipo Usuario: "
-							styleClass="labelI" />
-						<p:selectOneMenu id="userr"
-							value="#{bean1.usuario.idTipoUsuario}">
-							<f:selectItem itemLabel="--- Seleccione Tipo Usuario ---"
-								itemValue="" />
-							<f:selectItems value="#{bean1.tiposUsuarios}" styleClass="info" />
-						</p:selectOneMenu>
-					</div>
-					<div class="contenedor-result">
-						<p:outputLabel for="nacimiento" value="Fecha Nacimiento: "
-							styleClass="labelI" />
-						<p:inputText value="#{bean1.fecha}" required="true"
-							type="date" requiredMessage="Fecha Nacimiento es oblligatorio"
-							id="nacimiento" styleClass="input" />
-					</div>
-					<div class="contenedor-result text-center">
-						<p:commandButton value="Registrarse" update="errorR"
-							action="#{bean1.registrarse}" styleClass="button"
-							oncomplete="handleRegistroRequest(xhr, status, args)" />
-					</div>
-				</div>
-			</h:form>
-		</div>
-	</p:dialog>
+				</h:form>
+			</div>
+		</p:dialog>
+	</b:container>
 	<h:outputStylesheet library="css" name="login.css" />
 </body>
 </html>

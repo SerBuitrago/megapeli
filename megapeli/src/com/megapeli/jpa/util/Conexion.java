@@ -109,6 +109,29 @@ public class Conexion<T> {
 		return returnObject;
 	}
 
+	public <E> T findByFieldInt(String fieldName, E fieldValue) {
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(c);
+		Root<T> root = criteriaQuery.from(c);
+		criteriaQuery.select(root);
+
+		ParameterExpression<Integer> params = criteriaBuilder.parameter(int.class);
+		criteriaQuery.where(criteriaBuilder.equal(root.get(fieldName), params));
+
+		TypedQuery<T> query = (TypedQuery<T>) em.createQuery(criteriaQuery);
+		query.setParameter(params, (int) fieldValue);
+
+		List<T> queryResult = query.getResultList();
+
+		T returnObject = null;
+
+		if (!queryResult.isEmpty()) {
+			returnObject = queryResult.get(0);
+		}
+
+		return returnObject;
+	}
+
 	public <E> List<T> findByFieldList(String fieldName, E fieldValue) {
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(c);
@@ -120,6 +143,23 @@ public class Conexion<T> {
 
 		TypedQuery<T> query = (TypedQuery<T>) em.createQuery(criteriaQuery);
 		query.setParameter(params, (String) fieldValue);
+
+		List<T> queryResult = query.getResultList();
+
+		return queryResult;
+	}
+
+	public <E> List<T> findByFieldListInt(String fieldName, E fieldValue) {
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(c);
+		Root<T> root = criteriaQuery.from(c);
+		criteriaQuery.select(root);
+
+		ParameterExpression<Integer> params = criteriaBuilder.parameter(int.class);
+		criteriaQuery.where(criteriaBuilder.equal(root.get(fieldName), params));
+
+		TypedQuery<T> query = (TypedQuery<T>) em.createQuery(criteriaQuery);
+		query.setParameter(params, (int) fieldValue);
 
 		List<T> queryResult = query.getResultList();
 

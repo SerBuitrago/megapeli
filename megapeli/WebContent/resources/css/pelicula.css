@@ -1,0 +1,218 @@
+.contenedor-img-seleccionada {
+	width: 90% !important;
+	margin: 10px auto !important;
+}
+
+.contenedor-pelicula2 {
+	width: 80% !important;
+	overflow: hidden;
+	margin: 10px auto !important;
+	padding-bottom: 10px !important;
+}
+
+.img {
+	float: left !important;
+	width: 400px !important;
+	height: 500px !important;
+	border-radius: 15px;
+}
+
+.contenedor-pelicula-info {
+	box-shadow: 0 4px 10px 4px rgba(19, 35, 47, .3);
+	float: left !important;
+	margin-left: 50px !important;
+	width: 550px !important;
+	border-radius: 10px;
+}
+
+.contenedor-h2 {
+	width: 100% !important;
+	padding: 15px !important;
+	background-color: red;
+	border-radius: 10px;
+}
+
+.nombrepelicula {
+	color: white;
+	font-weight: bold !important;
+	font-size: 22px !important;
+	font-weight: bold !important;
+}
+
+.contenedor-dato {
+	width: 90% !important;
+	margin: 10px auto;
+}
+
+.subtitulo {
+	font-weight: bold !important;
+	font-size: 18px !important;
+	font-style: italic;
+}
+
+.informacion {
+	padding-left: 10px;
+	font-weight: normal !important;
+	font-size: 15px !important;
+	font-weight: normal !important;
+}
+
+.contenedor-pelicula-video {
+	width: 50% !important;
+	margin: 20px auto !important;
+	border: 1px solid black !important;
+	border-radius: 10px !important;
+}
+
+.h2-pelicula {
+	padding: 10px !important;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.h2-comentarios {
+	font-size: 22px;
+	color: black;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.contenedor-comentario {
+	width: 70% !important;
+	margin: auto !important;
+	border: 1px solid black !important;
+	padding: 20px;
+	border-radius: 10px !important;
+}
+
+.comentario {
+	color: blue;
+	font-size: 22px !important;
+	text-decoration: none !important;
+}
+
+.comentario:hover {
+	color: red !important;
+	text-decoration: none !important e;
+	cursor: pointer;
+}
+
+.linkpelicula {
+	display: block !important;
+	margin: 10px auto !important;
+}
+
+.contenedor-comentarios {
+	margin-top: 15px;
+	width: 90%;
+	margin: auto;
+	padding: 10px;
+	width: 90%;
+}
+
+.comentarios {
+	margin-top: 15px;
+	padding: 10px;
+}
+
+.resultado {
+	display: inline !important;
+	margin-left: 10px;
+	font-weight: normal !important;
+}
+
+.contenedor-comentar {
+	width: 70% !important;
+	margin: auto;
+	padding: 10px;
+	margin-bottom: 20px !important;
+}
+
+.nombreUser {
+	margin-top: 10px;
+	display: block !important;
+}
+
+.espacio {
+	width: 90% !important;
+	margin: auto !important;
+	height: 100px !important;
+}
+
+.botonComentar {
+	display: block !important;
+	margin: auto !important;
+	background: red !important;
+	color: white !important;
+	padding: 10px !important;
+}
+
+.iconComentario {
+	font-size: 20px;
+}
+
+@media screen and (max-width: 1252px) {
+	.contenedor-pelicula2 {
+		overflow: none !important;
+	}
+	.contenedor-pelicula-info {
+		float: none !important;
+		margin: auto !important;
+	}
+	.img {
+		float: none !important;
+		display: block;
+		margin: 10px auto;
+	}
+}
+
+@media screen and (max-width: 928px) {
+	.contenedor-pelicula-video {
+		width: 70% !important;
+	}
+}
+
+@media screen and (max-width: 724px) {
+	.contenedor-pelicula2 {
+		width: 100% !important;
+	}
+}
+
+@media screen and (max-width: 664px) {
+	.contenedor-pelicula-video, .contenedor-comentario {
+		width: 90% !important;
+	}
+}
+
+@media screen and (max-width: 564px) {
+	.contenedor-pelicula-info {
+		width: 90% !important;
+	}
+}
+
+@media screen and (max-width: 564px) {
+	.contenedor-pelicula-info {
+		width: 100% !important;
+	}
+	.img {
+		width: 300px !important;
+		height: 400px !important;
+	}
+}
+
+@media screen and (max-width: 456px) {
+	.contenedor-pelicula-video, .contenedor-comentario {
+		width: 95% !important;
+	}
+	.contenedor-comentarios {
+		width: 95% !important;
+		padding: 5px !important;
+	}
+}
+
+@media screen and (max-width: 312px) {
+	.img {
+		width: 100% !important;
+		height: auto !important;
+	}
+}

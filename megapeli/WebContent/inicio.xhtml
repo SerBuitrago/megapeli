@@ -5,70 +5,23 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 
+
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
 		<div class="contenedor-pelicula">
-			<div class="contenedor-img-pelicula">
-				<h:outputLink  value="pelicula.xhtml">
-					<h:graphicImage styleClass="imagen-pelicula"
-						value="https://i.blogs.es/87f71c/padial/450_1000.jpg" />
-				</h:outputLink>
-			</div>
-			<div class="contenedor-img-pelicula">
-				<h:outputLink  value="pelicula.xhtml">
-					<h:graphicImage styleClass="imagen-pelicula"
-						value="https://i.blogs.es/87f71c/padial/450_1000.jpg" />
-				</h:outputLink>
-			</div>
-			<div class="contenedor-img-pelicula">
-				<h:outputLink  value="pelicula.xhtml">
-					<h:graphicImage styleClass="imagen-pelicula"
-						value="https://i.blogs.es/87f71c/padial/450_1000.jpg" />
-				</h:outputLink>
-			</div>
-			<div class="contenedor-img-pelicula">
-				<h:outputLink  value="pelicula.xhtml">
-					<h:graphicImage styleClass="imagen-pelicula"
-						value="https://i.blogs.es/87f71c/padial/450_1000.jpg" />
-				</h:outputLink>
-			</div>
-			<div class="contenedor-img-pelicula">
-				<h:outputLink  value="pelicula.xhtml">
-					<h:graphicImage styleClass="imagen-pelicula"
-						value="https://i.blogs.es/87f71c/padial/450_1000.jpg" />
-				</h:outputLink>
-			</div>
-			<div class="contenedor-img-pelicula">
-				<h:outputLink  value="pelicula.xhtml">
-					<h:graphicImage styleClass="imagen-pelicula"
-						value="https://i.blogs.es/87f71c/padial/450_1000.jpg" />
-				</h:outputLink>
-			</div>
-			<div class="contenedor-img-pelicula">
-				<h:outputLink  value="pelicula.xhtml">
-					<h:graphicImage styleClass="imagen-pelicula"
-						value="https://i.blogs.es/87f71c/padial/450_1000.jpg" />
-				</h:outputLink>
-			</div>
-			<div class="contenedor-img-pelicula">
-				<h:outputLink  value="pelicula.xhtml">
-					<h:graphicImage styleClass="imagen-pelicula"
-						value="https://i.blogs.es/87f71c/padial/450_1000.jpg" />
-				</h:outputLink>
-			</div>
-			<div class="contenedor-img-pelicula">
-				<h:outputLink  value="pelicula.xhtml">
-					<h:graphicImage styleClass="imagen-pelicula"
-						value="https://i.blogs.es/87f71c/padial/450_1000.jpg" />
-				</h:outputLink>
-			</div>
-			<div class="contenedor-img-pelicula">
-				<h:outputLink  value="pelicula.xhtml">
-					<h:graphicImage styleClass="imagen-pelicula"
-						value="https://i.blogs.es/87f71c/padial/450_1000.jpg" />
-				</h:outputLink>
-			</div>
-		    
+		
+			<ui:repeat var="p" value="#{bean2.peliculas}" varStatus="lista">
+				<h:outputLink value="#{bean2.peliculaSele(p)}" 
+				     styleClass="contenedor-link-pelicula">
+					<p:graphicImage styleClass="imagen-pelicula"
+						value="#{bean2.peliculas.get(lista.index).foto}"
+						title="#{p.getPelicula().getFechalanzamiento().getDate()}" />
+						<h:outputLabel value="#{p.getPelicula().getNombre()}"
+						styleClass="cabezera-text" />
+				</h:outputLink>	
+				
+				<h:outputStylesheet library="css" name="inicio.css" />
+			</ui:repeat>
 		</div>
 	</ui:define>
 </ui:composition>
