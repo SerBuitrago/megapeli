@@ -1,3 +1,3 @@
 # megapeli
-Sistema para peliculas
+Sistema para peliculas <br>
 Usando JPA, JSF, MAVEN 
