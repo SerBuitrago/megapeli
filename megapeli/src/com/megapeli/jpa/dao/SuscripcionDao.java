@@ -8,7 +8,7 @@ extends Conexion<Suscripcion>
 implements GenericDao<Suscripcion> {
 
 public SuscripcionDao() {
-	super(Suscripcion.class);
-	// TODO Auto-generated constructor stub
-}
+		super(Suscripcion.class);
+		// TODO Auto-generated constructor stub
+	}
 }

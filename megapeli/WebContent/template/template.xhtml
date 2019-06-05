@@ -9,36 +9,49 @@
 
 <h:head>
 	<title>MegaPeli</title>
+	<f:event type="preRenderView" listener="#{security.verificarSesion()}" />
 </h:head>
 
 <h:body styleClass="body">
-	<header>
-		<b:navBar brandHref="#" id="dropMenuExample"
-			contentDisabled="#{navBarBean.navBarDisabled}"
-			rendered="#{bean1.validado.idTipoUsuario==1}">
-			<b:navbarLinks contentDisabled= "#{navBarBean.navBarLinksDisabled}">
-				<b:navLink value="Accion"  actionListener="#{bean2.accion()}" action="selecionada.xhtml"/>
-				<b:navLink value="Animación" action=""/>
-				<b:navLink value="Aventura" action=""/>
-				<b:navLink value="Ciencia Ficción" action=""/>
-				<b:navLink value="Comedia"  action=""/>
-				<b:navLink value="Crimen" action=""/>
-				<b:navLink value="Drama"  action=""/>
-				<b:navLink value="Fantasia" action=""/>
-				<b:navLink value="Misterio" action=""/>
-				<b:navLink value="Romantica" action=""/>
-				<b:navLink value="Suspenso" action=""/>
-				<b:navLink value="Terror"  action=""/>
-			</b:navbarLinks>
+	<div>
+		<b:navBar brand="MegaPeli" brandHref="inicio.xhtml" fluid="true">
+			<f:facet name="kebab">
+				<span class="fa fa-chevron-right"></span>
+			</f:facet>
+			<h:form>
+				<b:navbarLinks rendered="#{bean1.validado.idTipoUsuario==1}">
+					<b:navCommandLink value="Acción" 
+					   actionListener="#{bean2.accion()}"/>
+					<b:navCommandLink value="Animacion"
+						actionListener="#{bean2.animacion()}"/>
+					<b:navCommandLink value="Aventura"
+						actionListener="#{bean2.aventura()}"/>
+					<b:navCommandLink value="Ciencia Ficción"
+						actionListener="#{bean2.cienciaFiccion()}"></b:navCommandLink>
+					<b:navCommandLink value="Comedia"
+						actionListener="#{bean2.comedia()}"/>
+					<b:navCommandLink value="Crimen" 
+					    actionListener="#{bean2.crimen()}"/>
+					<b:navCommandLink value="Drama" 
+					    actionListener="#{bean2.drama()}"/>
+					<b:navCommandLink value="Fantasia"
+						actionListener="#{bean2.fantasia()}"/>
+					<b:navCommandLink value="Misterio"
+						actionListener="#{bean2.misterio()}"/>
+					<b:navCommandLink value="Romantica"
+						actionListener="#{bean2.romantica()}"/>
+					<b:navCommandLink value="Suspenso"
+						actionListener="#{bean2.suspenso()}"/>
+					<b:navCommandLink value="Terror" 
+					    actionListener="#{bean2.terror()}"/>
+				</b:navbarLinks>
+			</h:form>
 		</b:navBar>
-	</header>
-
-
+	</div>
 	<ui:insert name="body"></ui:insert>
-	<footer class="page-footer font-small blue pt-4">
-	<div class="footer-copyright text-center py-3">2019- Sergio
-		Buitrago-Leyner Ortega</div>
-	</footer>
+	<div class="page-footer font-small blue pt-4">
+		<div class="footer-copyright text-center py-3">2019- Sergio
+			Buitrago-Leyner Ortega</div>
+	</div>
 </h:body>
-
 </html>

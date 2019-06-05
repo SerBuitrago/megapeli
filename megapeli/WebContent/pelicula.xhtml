@@ -7,11 +7,19 @@
 
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
-		<div class="contenedor-pelicula2">
-			<p:graphicImage value="#{bean2.selecionada.foto}" styleClass="img" />
+
+		<div class="contenedor-pelicula-seleccionada">
+			<h:outputLink styleClass="contenedor-pelicula-img"
+				value="javascript:void(0)" onclick="PF('dlgVideo').show();">
+				<p:graphicImage value="#{bean2.selecionada.foto}" styleClass="img"
+					title="Ver pelicula" />
+			</h:outputLink>
+
 			<div class="contenedor-pelicula-info">
+
 				<div class="text-center contenedor-h2">
-					<h:outputText value="#{bean2.selecionada.pelicula.nombre}" styleClass="nombrepelicula" />
+					<h:outputText value="#{bean2.selecionada.pelicula.nombre}"
+						styleClass="nombrepelicula" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Sinopsis: " styleClass="subtitulo" />
@@ -20,58 +28,65 @@
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Genero: " styleClass="subtitulo" />
-					<h:outputLabel value="#{bean2.selecionada.pelicula.idGenero} " styleClass="informacion" />
+					<h:outputLabel value="#{bean2.selecionada.pelicula.idGenero} "
+						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Audio: " styleClass="subtitulo" />
-					<h:outputLabel value="#{bean2.selecionada.pelicula.idioma} " styleClass="informacion" />
+					<h:outputLabel value="#{bean2.selecionada.pelicula.idioma} "
+						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Calidad: " styleClass="subtitulo" />
-					<h:outputLabel value="#{bean2.selecionada.pelicula.calidad}" styleClass="informacion" />
+					<h:outputLabel value="#{bean2.selecionada.pelicula.calidad}"
+						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Director: " styleClass="subtitulo" />
-					<h:outputLabel value="#{bean2.selecionada.pelicula.idDirector}"
+					<h:outputLabel value="#{bean2.selecionada.director.nombre}"
 						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Actores: " styleClass="subtitulo" />
-					<h:outputLabel
-						value="Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Jude Law,
-					 Annette Bening, Lashana Lynch, Clark Gregg, Rune Temte,
-					  Gemma Chan, Algenis Perez Soto"
-						styleClass="informacion" />
+					<ui:repeat var="personaje" value="#{bean2.selecionada.personajes}" varStatus="p">
+						<h:outputLabel
+							value="#{personaje.getActor().getNombre()}"
+							styleClass="informacion" />
+					</ui:repeat>
+				</div>
+				<div class="contenedor-dato">
+					<h:outputLink onclick="PF('dlgVideo').show();"
+						styleClass="link-verpelicula" value="javascript:void(0)">Ver pelicula
+			        </h:outputLink>
 				</div>
 			</div>
 		</div>
-		<div class="contenedor-pelicula-video text-center">
-			<h:outputLabel value="Ver Pelicula " styleClass="h2-pelicula" />
-			<iframe width="90%" height="360" frameborder="0"
-				src="https://mega.nz/embed#!cHAwRAbI!Ql7fUMhzUG6ZHILhFG3P9lyUsd_UG5rFV542prLNixg"
-				class="linkpelicula"></iframe>
-		</div>
+
 		<div class="contenedor-comentario">
 			<h:outputLink onclick="PF('dlgComentar').show();"
-				title="añada un comentario :)" styleClass="comentario"
+				title="añada un comentario :)" styleClass="linkcomentario"
 				value="javascript:void(0)"> ¿Quieres añadir un comentario? </h:outputLink>
 			<div class="contenedor-comentarios">
 				<h:outputLabel value="Comentarios publicados..."
-					styleClass="h2-comentarios" />
+					styleClass="h2-comentario-peli" />
 				<div class="comentarios">
 					<b:iconAwesome value="newspaper-o" styleClass="iconComentario" />
 					<h:outputLabel value="Esta pelicula es muy buenaaa!!"
 						styleClass="resultado" />
+					<h:outputLabel value="2019-02-01" styleClass="fecha-publicacion" />
 				</div>
 				<div class="comentarios">
 					<b:iconAwesome value="newspaper-o" styleClass="iconComentario" />
 					<h:outputLabel value="Esta pelicula es muy buenaaa!!"
 						styleClass="resultado" />
+					<h:outputLabel value="2019-02-01" styleClass="fecha-publicacion" />
 				</div>
 				<div class="comentarios">
 					<b:iconAwesome value="newspaper-o" styleClass="iconComentario" />
-					<h:outputLabel value="Esta pelicula es muy buenaaa!!"
+					<h:outputLabel
+						value="Esta pelicula es muy buenaaa!!xxxxxxxxxxxxxx d"
 						styleClass="resultado" />
+					<h:outputLabel value="2019-02-01" styleClass="fecha-publicacion" />
 				</div>
 				<div class="comentarios">
 					<b:iconAwesome value="newspaper-o" styleClass="iconComentario" />
@@ -83,28 +98,67 @@
 						  parecida que podemos encontrar es la Carton Six diseñada por Jayvee D. Puedes descargarla 
 						  gratis"
 						styleClass="resultado" />
+					<h:outputLabel value="2019-02-01" styleClass="fecha-publicacion" />
 				</div>
 			</div>
 		</div>
 
 
+
+		<p:dialog header="video" widgetVar="dlgVideo" showEffect="explode"
+			hideEffect="explode" modal="true" styleClass="dialog">
+			<div class="contenedor-video-pelicula">
+				<div class="text-center contenedor-h22">
+					<h:outputLabel value="Feliz dia de tu muerte 2"
+						styleClass="nombrepelicula-video" />
+				</div>
+				<div class="contenedor-video-pelicula-link">
+					<iframe width="90%" height="360" frameborder="0"
+						class="linkpelicula"
+						src="https://mega.nz/embed#!cHAwRAbI!Ql7fUMhzUG6ZHILhFG3P9lyUsd_UG5rFV542prLNixg">
+					</iframe>
+				</div>
+			</div>
+		</p:dialog>
+
+
+
 		<p:dialog header="comentar" widgetVar="dlgComentar"
 			showEffect="explode" hideEffect="explode" modal="true"
-			styleClass="dialog">
+			styleClass="dialog2">
 			<p:growl id="errorP" sticky="true" showDetail="true" life="3000" />
 			<div class="contenedor-comentar">
-				<h:form>
-					<h:outputLabel value="Sergio Buitrago :" styleClass="nombreUser" />
-					<h:inputTextarea styleClass="espacio" />
-					<h:commandButton value="Comentar" styleClass="botonComentar"></h:commandButton>
+				<h:form style="text-center">
+					<div class="h2-comentar-user text-center">
+						<h:outputLabel value="Deja un comentario Sergio Buitrago"
+							styleClass="nombreUser" />
+					</div>
+					<div class="text-comentar-user">
+						<h:inputTextarea styleClass="espacio" />
+					</div>
+					<div class="text-comentar-user">
+						<h:commandButton value="Comentar" styleClass="botonComentar"></h:commandButton>
+					</div>
 				</h:form>
 			</div>
 		</p:dialog>
 		<style type="text/css">
 .dialog {
+	width: 70% !important;
+}
+
+.dialog2 {
 	width: 40% !important;
-	height: 290px !important;
-	margin: auto !important;
+	height: auto;
+}
+
+.ui-dialog-title {
+	display: none !important;
+	background-color: white;
+}
+
+.ui-dialog-titlebar {
+	background-color: white;
 }
 </style>
 		<h:outputStylesheet library="css" name="pelicula.css" />
