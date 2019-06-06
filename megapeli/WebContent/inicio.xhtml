@@ -13,16 +13,14 @@
 				<h:outputLink value="#{bean2.peliculaSelec(p)}" rendered="#{bean1.validado.idTipoUsuario==1}"
 				     styleClass="contenedor-link-pelicula">
 					<p:graphicImage styleClass="imagen-pelicula"
-						value="#{p.foto}"
+						value="#{bean2.peliculas.get(0).foto}"
 						title="#{p.getPelicula().getFechalanzamiento().getDate()}" />
 						<h:outputLabel value="#{p.getPelicula().getNombre()}"
 						styleClass="cabezera-text" />
-				</h:outputLink>	
-				
-				
-				<h:outputStylesheet library="css" name="inicio.css" />
+				</h:outputLink>		
 			</ui:repeat>
 		</div>
+		<h:outputStylesheet library="css" name="inicio.css" />
 	</ui:define>
 </ui:composition>
 </html>

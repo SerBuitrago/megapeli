@@ -20,30 +20,31 @@
 			</f:facet>
 			<h:form>
 				<b:navbarLinks rendered="#{bean1.validado.idTipoUsuario==1}">
-					<b:navCommandLink value="Acción" 
-					   actionListener="#{bean2.accion()}"/>
+					<b:navCommandLink value="Acción" actionListener="#{bean2.accion()}" />
 					<b:navCommandLink value="Animacion"
-						actionListener="#{bean2.animacion()}"/>
+						actionListener="#{bean2.animacion()}" />
 					<b:navCommandLink value="Aventura"
-						actionListener="#{bean2.aventura()}"/>
+						actionListener="#{bean2.aventura()}" />
 					<b:navCommandLink value="Ciencia Ficción"
 						actionListener="#{bean2.cienciaFiccion()}"></b:navCommandLink>
 					<b:navCommandLink value="Comedia"
-						actionListener="#{bean2.comedia()}"/>
-					<b:navCommandLink value="Crimen" 
-					    actionListener="#{bean2.crimen()}"/>
-					<b:navCommandLink value="Drama" 
-					    actionListener="#{bean2.drama()}"/>
+						actionListener="#{bean2.comedia()}" />
+					<b:navCommandLink value="Crimen" actionListener="#{bean2.crimen()}" />
+					<b:navCommandLink value="Drama" actionListener="#{bean2.drama()}" />
 					<b:navCommandLink value="Fantasia"
-						actionListener="#{bean2.fantasia()}"/>
+						actionListener="#{bean2.fantasia()}" />
 					<b:navCommandLink value="Misterio"
-						actionListener="#{bean2.misterio()}"/>
+						actionListener="#{bean2.misterio()}" />
 					<b:navCommandLink value="Romantica"
-						actionListener="#{bean2.romantica()}"/>
+						actionListener="#{bean2.romantica()}" />
 					<b:navCommandLink value="Suspenso"
-						actionListener="#{bean2.suspenso()}"/>
-					<b:navCommandLink value="Terror" 
-					    actionListener="#{bean2.terror()}"/>
+						actionListener="#{bean2.suspenso()}" />
+					<b:navCommandLink value="Terror" actionListener="#{bean2.terror()}" />
+					<b:dropMenu value="dd" styleClass="text-center">
+						<b:navCommandLink value="perfil" href="perfil.xhtml"/>
+						<b:navCommandLink value="Seguir" href="seguir.xhtml"/>
+						<b:navCommandLink value="cerrar sesion" actionListener="#{bean2.cerrarSesion()}"/>
+					</b:dropMenu>
 				</b:navbarLinks>
 			</h:form>
 		</b:navBar>

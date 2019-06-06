@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="body">
+		<b:container rendered="#{bean1.validado.idTipoUsuario==1}">
+			<h:form>
+				<p:dataTable var="us" value="#{bean3.listaAdministradores()}"
+					styleClass="text-center" >
+
+				  <p:column headerText="Nombre">
+					<h:outputText value="#{us.getNombre()}" />
+				   </p:column>
+				</p:dataTable>
+			</h:form>
+		</b:container>
+	</ui:define>
+</ui:composition>
+</html>

@@ -12,7 +12,7 @@
 				<h:outputLink value="#{bean2.peliculaSelec(p)}"
 					styleClass="contenedor-link-pelicula">
 					<p:graphicImage styleClass="imagen-pelicula"
-						value="#{bean2.peliculagenero.get(lista.index).foto}"
+						value="#{p.foto}"
 						title="#{p.getPelicula().getFechalanzamiento().getDate()}" />
 					<h:outputLabel value="#{p.getPelicula().getNombre()}"
 						styleClass="cabezera-text" />

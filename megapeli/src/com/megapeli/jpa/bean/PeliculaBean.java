@@ -31,7 +31,7 @@ import com.megapeli.jpa.entity.Suscripcion;
 public class PeliculaBean {
 
 	@ManagedProperty("#{bean1}")
-	private UsuarioBean bean1;
+	private LoginBean bean1;
 
 	private List<Pelicula> peliculas;
 
@@ -41,22 +41,26 @@ public class PeliculaBean {
 
 	@PostConstruct
 	public void intPeliculas() {
-		if (peliculas == null) {
+		if (peliculas == null || peliculas.size()==0) {
 			peliculas = new ArrayList<>();
 			PeliculaDao daoP = new PeliculaDao();
 			SuscripcionDao daoS = new SuscripcionDao();
 			List<Suscripcion> suscripcion = new ArrayList<>();
 
 			suscripcion = daoS.findByFieldListInt("idUsuario", bean1.getValidado().getId());
+			
 			for (int i = 0; i < suscripcion.size(); i++) {
 				List<Peliculap> tmp = new ArrayList<>();
 				tmp = daoP.findByFieldListInt("idUsuario", suscripcion.get(i).getIdSuscripto());
 				for (int j = 0; j < tmp.size(); j++) {
 					Pelicula pelicula = new Pelicula();
 					pelicula.setPelicula(tmp.get(j));
-					InputStream input = new ByteArrayInputStream(pelicula.getPelicula().getImagen());
-					pelicula.setFoto(new DefaultStreamedContent(input, "image/jpg|jpn|jpe"));
-					peliculas.add(pelicula);
+					if(pelicula.getPelicula()!=null) {
+						InputStream input = new ByteArrayInputStream(pelicula.getPelicula().getImagen());
+						pelicula.setFoto(new DefaultStreamedContent(input, "image/jpg"));
+					  System.out.print(""+pelicula.getFoto().hashCode());
+						peliculas.add(pelicula);
+					}				
 				}
 			}
 		}
@@ -233,6 +237,10 @@ public class PeliculaBean {
 			}
 		}
 	}
+	
+	public void cerrarSesion() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+	}
 /////////////////////////////////////////////// GETTER Y SETTERS ///////////////////////////
 
 	public List<Pelicula> getPeliculas() {
@@ -243,11 +251,11 @@ public class PeliculaBean {
 		this.peliculas = peliculas;
 	}
 
-	public UsuarioBean getBean1() {
+	public LoginBean getBean1() {
 		return bean1;
 	}
 
-	public void setBean1(UsuarioBean bean1) {
+	public void setBean1(LoginBean bean1) {
 		this.bean1 = bean1;
 	}
 

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
-import com.megapeli.jpa.bean.UsuarioBean;
+import com.megapeli.jpa.bean.LoginBean;
 import com.megapeli.jpa.entity.Usuariop;
 
 @ManagedBean(name = "security")
@@ -12,7 +12,7 @@ import com.megapeli.jpa.entity.Usuariop;
 public class SeguridadController implements Serializable {
 
 	@ManagedProperty("#{bean1}")
-	private UsuarioBean bean1;
+	private LoginBean bean1;
 
 	public void verificarSesion() {
 
@@ -55,11 +55,11 @@ public class SeguridadController implements Serializable {
 		}
 	}
 
-	public UsuarioBean getBean1() {
+	public LoginBean getBean1() {
 		return bean1;
 	}
 
-	public void setBean1(UsuarioBean bean1) {
+	public void setBean1(LoginBean bean1) {
 		this.bean1 = bean1;
 	}
 }

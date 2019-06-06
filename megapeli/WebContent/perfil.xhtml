@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="body">
+
+		<script type="text/javascript">
+			function handleActualizarRequest(xhr, status, args) {
+				if (args.validationFailed || !args.loggedIn) {
+					PF('dlgActualizar').jq.effect("shake", {
+						times : 5
+					}, 100);
+				} else {
+					PF('dlgActualizar').hide();
+					$('#dlgLink').fadeOut();
+				}
+			}
+		</script>
+		<div class="contenedor-informacion-usuario">
+			<h:outputText value="Información Personal"
+				styleClass="h1 text-center" />
+			<div class="contenedor-informacion">
+				<h:outputLabel value="Nombre: " styleClass="h2" />
+				<h:outputLabel value="#{bean1.validado.nombre}" styleClass="h3" />
+			</div>
+			<div class="contenedor-informacion">
+				<h:outputLabel value="Apellido: " styleClass="h2" />
+				<h:outputLabel value="#{bean1.validado.apellido}" styleClass="h3" />
+			</div>
+			<div class="contenedor-informacion">
+				<h:outputLabel value="Email: " styleClass="h2" />
+				<h:outputLabel value="#{bean1.validado.email}" styleClass="h3" />
+			</div>
+			<div class="contenedor-informacion">
+				<h:outputLabel value="Tipo Usuario: " styleClass="h2" />
+				<h:outputLabel value="#{bean1.validado.idTipoUsuario}"
+					styleClass="h3" />
+			</div>
+			<div class="contenedor-informacion">
+				<h:outputLabel value="Fecha Nacimiento: " styleClass="h2" />
+				<h:outputLabel value="#{bean1.validado.fechaNacimiento}"
+					styleClass="h4" />
+			</div>
+			<div class="contenedor-informacion">
+				<h:outputLabel value="Fecha Registro: " styleClass="h2" />
+				<h:outputLabel value="#{bean1.validado.fechaRegistro}"
+					styleClass="h4" />
+			</div>
+			<div class="contenedor-informacion">
+				<h:outputLink value="javascript:void(0)" styleClass="link"
+					onclick="PF('dlgActualizar').show();"
+					title="Actualizar Información">
+					<b:iconAwesome name="cog" spin="true" size="3x" />
+				</h:outputLink>
+			</div>
+		</div>
+
+		<b:container rendered="#{bean1.validado.idTipoUsuario==1}"
+			styleClass="contenedor-tabla">
+			<h:outputLabel value="Siguiendo...." styleClass="sigiendo" />
+			<h:form>
+				<p:dataTable var="susc" value="#{bean3.initSuscriptores()}"
+					styleClass="text-center" />
+					
+					<p:column headerText="Nombre">
+						<h:outputText
+							value="#{bean3.conocerUsuario(susc.getIdSuscripto()).getNombre()}" />
+					</p:column>
+					<p:column headerText="Apellido">
+						<h:outputText
+							value="#{bean3.conocerUsuario(susc.getIdSuscripto()).getApellido()}" />
+					</p:column>
+					<p:column headerText="Peliculas Publicadas">
+						<h:outputText
+							value="#{bean3.peliculasPublicadas(susc.getIdSuscripto())}" />
+					</p:column>
+					<p:column headerText="Dejar Seguir">
+						<h:commandButton value="Dejar Seguir"
+							action="#{bean3.dejarSeguir(susc)}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</b:container>
+
+
+
+
+
+		<p:dialog header="forgot" widgetVar="dlgActualizar"
+			showEffect="explode" hideEffect="explode" modal="true"
+			styleClass="dialog">
+
+			<p:growl id="errorA" sticky="true" showDetail="true" life="3000" />
+
+			<h:form>
+				<div class="contenedor-actualizar-usuario">
+					<h:outputText value="Actualizar Información"
+						styleClass="h1 text-center" />
+
+					<div class="contenedor-informacion">
+						<h:outputLabel value="Nombre: " styleClass="h2-a" />
+						<h:inputText value="#{bean3.actualizar.nombre}" required="true"
+							styleClass="h3-a"
+							validator="#{loginValidator.validarNombreYApellido}" />
+					</div>
+
+					<div class="contenedor-informacion">
+						<h:outputLabel value="Apellido: " styleClass="h2-a" />
+						<h:inputText value="#{bean3.actualizar.apellido}" required="true"
+							styleClass="h3-a"
+							validator="#{loginValidator.validarNombreYApellido}" />
+					</div>
+
+					<div class="contenedor-informacion">
+						<h:outputLabel value="Email: " styleClass="h2-a" />
+						<h:inputText value="#{bean3.actualizar.email}" required="true"
+							styleClass="h3-a" validator="#{loginValidator.validarCorreo}" />
+					</div>
+
+					<div class="contenedor-informacion">
+						<h:outputLabel value="Password Nueva: " styleClass="h2-a" />
+						<p:password value="#{bean3.actualizar.password}" required="true"
+							styleClass="h3-a" validator="#{loginValidator.validarPassword}" />
+					</div>
+					<div class="contenedor-boton">
+						<p:commandButton value="Actualizar" update="errorA"
+							action="#{bean3.actualizarUsuario}" styleClass="button"
+							oncomplete="handleActualizarRequest(xhr, status, args)" />
+					</div>
+				</div>
+			</h:form>
+		</p:dialog>
+
+
+
+
+		<style type="text/css">
+* {
+	font-family: sans-serif;
+}
+
+.contenedor-informacion-usuario, .contenedor-actualizar-usuario {
+	width: 600px;
+	background: #F4EEEC;
+	margin: 20px auto;
+	border-radius: 10px;
+	padding-bottom: 15px;
+}
+
+.contenedor-actualizar-usuario {
+	margin: 0px;
+	width: 100%;
+}
+
+.h1 {
+	color: white;
+	font-size: 24px;
+	padding: 15px;
+	display: block;
+	background-color: red;
+	margin: auto;
+	border-radius: 10px;
+	text-align: center;
+	border-radius: 10px;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+.contenedor-informacion {
+	width: 95%;
+	margin: auto;
+	overflow: hidden;
+}
+
+.contenedor-boton {
+	width: 95%;
+	margin: 0 auto;
+	margin-top: 15px;
+}
+
+.contenedor-informacion .h2 {
+	float: left;
+	width: 30%;
+	font-weight: bold;
+	font-size: 18px;
+	padding-left: 10px;
+	text-align: center;
+}
+
+.contenedor-informacion .h2-a {
+	width: 100%;
+	font-weight: bold;
+	font-size: 18px;
+	padding-left: 10px;
+}
+
+.contenedor-informacion .h3, .contenedor-informacion .h4 {
+	float: left;
+	width: 65%;
+	margin-left: 5px;
+	background-color: white;
+	transform: translateY(-10px);
+	padding: 10px;
+	border-radius: 10px;
+	font-size: 16px;
+	padding: 10px;
+}
+
+.contenedor-informacion .h3-a, .contenedor-informacion .h4-a {
+	width: 90%;
+	border-radius: 15px;
+	display: block;
+	margin: auto;
+	outline: none;
+	cursor: pointer;
+	border: 2px solid white;
+	padding: 7px;
+}
+
+.contenedor-informacion .h3-a:focus, .contenedor-informacion .h4-a:focus
+	{
+	border: 2px solid green;
+}
+
+.contenedor-informacion .h4 {
+	padding-top: 10px;
+	transform: none;
+}
+
+.link {
+	float: right;
+}
+
+.fa-spin {
+	color: red;
+}
+
+.contenedor-tabla {
+	width: 80%;
+	margin: 15px auto;
+	margin-bottom: 20px;
+}
+
+.sigiendo {
+	font-size: 22px;
+}
+
+@media screen and (max-width: 722px) {
+	.contenedor-informacion-usuario {
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 482px) {
+	.contenedor-informacion-usuario {
+		width: 98%;
+	}
+	.contenedor-informacion {
+		overflow: none;
+	}
+	.contenedor-informacion .h2 {
+		float: none;
+		width: 100%;
+		text-align: left;
+	}
+	.contenedor-informacion .h3, .contenedor-informacion .h4 {
+		float: none;
+		width: 98%;
+		margin-top: 5px;
+		height: auto;
+	}
+}
+
+.dialog {
+	position: absolute !important;
+	background-color: white;
+	width: 40% !important;
+	margin: 0 auto !important;
+}
+
+.ui-dialog-titlebar {
+	background-color: white;
+}
+
+.ui-dialog-content {
+	padding: 0;
+}
+
+.ui-dialog-title {
+	display: none;
+}
+
+.ui-icon-closethick {
+	font-size: 22px;
+}
+
+.ui-icon-closethick:hover {
+	opacity: 0.7;
+}
+
+.ui-dialog-titlebar-icon {
+	color: white;
+}
+
+.ui-dialog-titlebar-icon {
+	color: white;
+}
+
+.ui-dialog-titlebar {
+	background-color: rgba(255, 138, 155, 0.3);
+}
+
+.ui-button-text-only {
+	background-color: red;
+}
+
+.ui-button-text {
+	color: white;
+	font-size: 22px;
+	background-color: red;
+}
+
+.button {
+	margin-top: 15px;
+	margin-bottom: 5px;
+	display: block;
+	margin: auto;
+	background: red;
+	padding: 8px;
+	color: white;
+	cursor: pointer;
+}
+</style>
+	</ui:define>
+</ui:composition>
+</html>

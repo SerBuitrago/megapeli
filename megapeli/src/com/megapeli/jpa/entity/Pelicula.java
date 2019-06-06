@@ -21,17 +21,17 @@ public class Pelicula{
 	}
 	
 	/////////////////////////////////// GETTER Y SETTERS ////////////////////////////////////
-	
-	public StreamedContent getFoto() {
-		return foto;
-	}
 
 	public Peliculap getPelicula() {
 		return pelicula;
-	}
+	}	
 
 	public void setPelicula(Peliculap pelicula) {
 		this.pelicula = pelicula;
+	}
+	
+	public StreamedContent getFoto() {
+		return foto;
 	}
 
 	public void setFoto(StreamedContent foto) {

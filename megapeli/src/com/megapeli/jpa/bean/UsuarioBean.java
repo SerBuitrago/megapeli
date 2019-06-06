@@ -1,159 +1,115 @@
 package com.megapeli.jpa.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
 import org.primefaces.PrimeFaces;
-import com.megapeli.jpa.dao.TipoUsuarioDao;
+import com.megapeli.jpa.dao.PeliculaDao;
+import com.megapeli.jpa.dao.SuscripcionDao;
 import com.megapeli.jpa.dao.UsuarioDAO;
-import com.megapeli.jpa.entity.Tipousuario;
+import com.megapeli.jpa.entity.Suscripcion;
 import com.megapeli.jpa.entity.Usuariop;
 
-@ManagedBean(name = "bean1")
+@ManagedBean(name = "bean3")
 @SessionScoped
-public class UsuarioBean {
+public class UsuarioBean implements Serializable{
 
-	private Usuariop usuario = new Usuariop();
-	private Usuariop validado = null;
+	@ManagedProperty("#{bean1}")
+	private LoginBean bean1;
+	
+	@ManagedProperty("#{bean2}")
+	private PeliculaBean bean2;
 
-	private String fecha;
-	private List<SelectItem> tipousuarios;
+	private Usuariop actualizar;
 
-	@PostConstruct
-	public void tipoUsuario() {
-		if (tipousuarios == null) {
-			tipousuarios = new ArrayList<SelectItem>();
-			SelectItemGroup s = new SelectItemGroup("Tipo Usuario");
-			TipoUsuarioDao daoT = new TipoUsuarioDao();
-			List<Tipousuario> tipoUsuario = daoT.list();
-			SelectItem[] items= new SelectItem[tipoUsuario.size()];
-			for(int i=0; i<tipoUsuario.size(); i++){
-				items[i]=new SelectItem("" + tipoUsuario.get(i).getId(), "" + tipoUsuario.get(i).getDescripcion());
-				
+	public List<Suscripcion>  initSuscriptores() {		
+		if (bean1.getValidado() != null) {
+			if (bean1.getValidado().getIdTipoUsuario() == 1) {
+				List<Suscripcion> suscriptores= new ArrayList<>();
+				SuscripcionDao daoS = new SuscripcionDao();
+				suscriptores = daoS.findByFieldListInt("idUsuario", bean1.getValidado().getId());
+				return suscriptores;
 			}
-			s.setSelectItems(items);
-			tipousuarios.add(s);
 		}
+		return null;
 	}
-
-	public String logearse() {
-		if (validado == null) {
-			FacesMessage message = null;
-			UsuarioDAO daoU = new UsuarioDAO();
-
-			Usuariop us = daoU.findByField("email", usuario.getEmail());
-			if (us != null) {
-				if (usuario.getPassword().contentEquals(us.getPassword())) {
-					this.validado = us;
-                    this.usuario= new Usuariop();					
-					return "inicio?faces-redirect=true";
-				} else {
-					message = new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Contraseña Incorrecta");
-				}
-			} else {
-				message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "REGISTRASE", "Usuario No existe");
-			}
-			FacesContext.getCurrentInstance().addMessage(null, message);
-		}
-		return "login?faces-redirect=true";
-	}
-
-	public String registrarse() {
-		FacesMessage message = null;
-		UsuarioDAO daoU = new UsuarioDAO();
-		Usuariop us = daoU.findByField("email", usuario.getEmail());
-		if (us == null) {
-			usuario.setFechaNacimiento(java.sql.Date.valueOf(fecha));
-			Calendar c = Calendar.getInstance();
-			String dia = Integer.toString(c.get(Calendar.DATE));
-			String mes = Integer.toString(c.get(Calendar.MONTH) + 1);
-			String annio = Integer.toString(c.get(Calendar.YEAR));
-			int tmp = Integer.parseInt(mes);
-			mes = (tmp < 10) ? "0" + tmp : "" + tmp;
-			String fechaactual = annio + "-" + mes + "-" + dia;
-			usuario.setFechaRegistro(java.sql.Date.valueOf(fechaactual));
-			daoU.insert(usuario);
-			this.usuario= new Usuariop();
-			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success",
-					"Te registrarse correctamente ahora inicia sesion");
-		} else {
-			message = new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Email ya en USO");
-		}
-		FacesContext.getCurrentInstance().addMessage(null, message);
-		PrimeFaces.current().ajax().addCallbackParam("loggeddIn", (us != null) ? true : false);
-		return "logi?faces-redirect=truen";
-	}
-
-	public void forgotPassword() {
-		FacesMessage message = null;
-		UsuarioDAO daoU = new UsuarioDAO();
-		Usuariop us = daoU.findByField("email", usuario.getEmail());
-		if (us != null) {
-			if (usuario.getPassword().length() >= 10) {
-				us.setPassword(usuario.getPassword());
-				daoU.update(us);
-				this.usuario= new Usuariop();
-				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success",
-						"Cambiaste Correctamente la contraseña");
-			} else {
-				message = new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Contraseña muy corta");
-			}
-		} else {
-			message = new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Email No Existe!");
-		}
-		FacesContext.getCurrentInstance().addMessage(null, message);
-		PrimeFaces.current().ajax().addCallbackParam("loggedIn", (us != null) ? true : false);
-	}
-
-	/////////////////////////////////////////////// GETTER Y SETTERS
-	/////////////////////////////////////////////// ///////////////////////////
-
-	public Usuariop getUsuario() {
+	
+	public List<Usuariop> listaAdministradores(){
+		List<Usuariop> usuario= new ArrayList<>();
+		UsuarioDAO dao= new UsuarioDAO();
+		usuario=dao.findByFieldListInt("idTipoUsuario", 2);
 		return usuario;
 	}
-
-	public void setUsuario(Usuariop usuario) {
-		this.usuario = usuario;
-	}
-
-	public Usuariop getValidado() {
-		return validado;
-	}
-
-	public void setValidado(Usuariop validado) {
-		this.validado = validado;
-	}
-
-	public List<SelectItem> getTiposUsuarios() {
-		return tipousuarios;
-	}
-
-	public void setUsuarios(List<SelectItem> tipousuarios) {
-		this.tipousuarios = tipousuarios;
-	}
-
-	public String getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
-	public List<SelectItem> getTipousuarios() {
-		return tipousuarios;
-	}
-
-	public void setTipousuarios(List<SelectItem> tipousuarios) {
-		this.tipousuarios = tipousuarios;
+	
+	public Usuariop conocerUsuario(int i) {
+		UsuarioDAO dao= new UsuarioDAO();
+		Usuariop u= new Usuariop();
+		u=dao.find(i);
+		return u;
 	}
 	
-	
+	public int peliculasPublicadas(int id) {
+		PeliculaDao daoP= new PeliculaDao();
+		return daoP.findByFieldListInt("idUsuario", id).size();
+	}
+
+	public void dejarSeguir(Suscripcion s) {
+		SuscripcionDao daoS = new SuscripcionDao();
+		daoS.delete(s);
+		bean2.setPeliculas(null);
+	}
+
+	public void seguir(Suscripcion s) {
+		SuscripcionDao daoS = new SuscripcionDao();
+		daoS.insert(s);
+	}
+
+	public void actualizarUsuario() {
+		FacesMessage message = null;
+		if (actualizar != null) {
+			UsuarioDAO daoU = new UsuarioDAO();
+			daoU.update(actualizar);
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Actualizado Correctamente");
+		} else {
+			message = new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Error al Actualizar Usuario");
+		}
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		PrimeFaces.current().ajax().addCallbackParam("loggeddIn", (actualizar != null) ? true : false);
+	}
+
+	public void eliminarCuenta() {
+		UsuarioDAO daoU = new UsuarioDAO();
+		daoU.delete(bean1.getValidado());
+	}
+
+////////////////////////////////////GETTER Y SETTERS //////////////////////////////////// /////////////////////////////////////////
+
+	public LoginBean getBean1() {
+		return bean1;
+	}
+
+	public void setBean1(LoginBean bean1) {
+		this.bean1 = bean1;
+	}
+
+	public Usuariop getActualizar() {
+		return actualizar;
+	}
+
+	public void setActualizar(Usuariop actualizar) {
+		this.actualizar = actualizar;
+	}
+
+	public PeliculaBean getBean2() {
+		return bean2;
+	}
+
+	public void setBean2(PeliculaBean bean2) {
+		this.bean2 = bean2;
+	}	
 }
