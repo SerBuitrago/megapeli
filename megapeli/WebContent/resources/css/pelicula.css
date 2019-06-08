@@ -6,9 +6,11 @@ body {
 .contenedor-pelicula-seleccionada {
 	width: 90% !important;
 	background-color: #F4EEEC;
+	height: auto;
 	border-radius: 15px;
 	margin: 20px auto;
 	overflow: hidden;
+	padding-bottom: 15px;
 }
 
 .contenedor-pelicula-img {

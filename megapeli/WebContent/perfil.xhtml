@@ -20,7 +20,7 @@
 				}
 			}
 		</script>
-		<div class="contenedor-informacion-usuario">
+		<div class="contenedor-informacion-usuario" id="informacionUsuario">
 			<h:outputText value="Información Personal"
 				styleClass="h1 text-center" />
 			<div class="contenedor-informacion">
@@ -33,11 +33,12 @@
 			</div>
 			<div class="contenedor-informacion">
 				<h:outputLabel value="Email: " styleClass="h2" />
-				<h:outputLabel value="#{bean1.validado.email}" styleClass="h3" />
+				<h:outputLabel value="#{bean1.validado.email}" styleClass="h3" 
+				 style="text-transform: none"/>
 			</div>
 			<div class="contenedor-informacion">
 				<h:outputLabel value="Tipo Usuario: " styleClass="h2" />
-				<h:outputLabel value="#{bean1.validado.idTipoUsuario}"
+				<h:outputLabel value="#{bean3.tipoUsuario(bean1.validado.idTipoUsuario)}"
 					styleClass="h3" />
 			</div>
 			<div class="contenedor-informacion">
@@ -72,26 +73,23 @@
 						value="#{bean3.conocerUsuario(susc.getIdSuscripto()).getApellido()}" />
 					<p:column headerText="Nombre" filterBy="#{nombre}"
 						filterMatchMode="contains">
-						<h:outputText value="#{nombre}" styleClass="tdR"/>
+						<h:outputText value="#{nombre}" styleClass="tdR" />
 					</p:column>
 					<p:column headerText="Apellido" filterBy="#{apellido}"
 						filterMatchMode="contains">
-						<h:outputText value="#{apellido}" styleClass="tdR"/>
+						<h:outputText value="#{apellido}" styleClass="tdR" />
 					</p:column>
 					<p:column headerText="Peliculas Publicadas">
 						<h:outputText styleClass="tdR"
 							value="#{bean4.peliculasPublicadas(susc.getIdSuscripto())}" />
 					</p:column>
 					<p:column headerText="Dejar Seguir">
-						<p:commandButton value="Dejar Seguir"
+						<p:commandButton icon="fa fa-thumbs-o-down" 
 							action="#{bean3.dejarSeguir(susc)}" update="tablaSiguiendo" />
 					</p:column>
 				</p:dataTable>
 			</h:form>
 		</b:container>
-
-
-
 
 
 		<p:dialog header="forgot" widgetVar="dlgActualizar"
@@ -107,27 +105,27 @@
 
 					<div class="contenedor-informacion">
 						<h:outputLabel value="Nombre: " styleClass="h2-a" />
-						<h:inputText value="#{bean3.actualizar.nombre}" required="true"
+						<h:inputText value="#{bean3.actualizar.nombre}"
 							styleClass="h3-a"
 							validator="#{loginValidator.validarNombreYApellido}" />
 					</div>
 
 					<div class="contenedor-informacion">
 						<h:outputLabel value="Apellido: " styleClass="h2-a" />
-						<h:inputText value="#{bean3.actualizar.apellido}" required="true"
+						<h:inputText value="#{bean3.actualizar.apellido}"
 							styleClass="h3-a"
 							validator="#{loginValidator.validarNombreYApellido}" />
 					</div>
 
 					<div class="contenedor-informacion">
 						<h:outputLabel value="Email: " styleClass="h2-a" />
-						<h:inputText value="#{bean3.actualizar.email}" required="true"
+						<h:inputText value="#{bean3.actualizar.email}"
 							styleClass="h3-a" validator="#{loginValidator.validarCorreo}" />
 					</div>
 
 					<div class="contenedor-informacion">
 						<h:outputLabel value="Password Nueva: " styleClass="h2-a" />
-						<p:password value="#{bean3.actualizar.password}" required="true"
+						<p:password value="#{bean3.actualizar.password}" 
 							styleClass="h3-a" validator="#{loginValidator.validarPassword}" />
 					</div>
 					<div class="contenedor-boton">

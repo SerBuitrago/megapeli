@@ -8,20 +8,22 @@
 
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
-		<b:container class="contenedor-pelicula"
-			rendered="#{bean1.validado.idTipoUsuario==1}">
-			<h:form>
-				<ui:repeat var="p" value="#{bean2.listaPeliculas()}">
-					<h:commandLink actionListener="#{bean2.peliculaSelec(p)}" action="pelicula.xhtml"
-						styleClass="contenedor-link-pelicula">
-						<h:graphicImage styleClass="imagen-pelicula"
-							value="#{p.getImagen()}"
-							title="#{p.getFechalanzamiento().getDate()}" />
-						<h:outputLabel value="#{p.getNombre()}" styleClass="cabezera-text" />
-					</h:commandLink>
-				</ui:repeat>
-			</h:form>
-		</b:container>
+			<b:container class="contenedor-pelicula"
+				rendered="#{bean1.validado.idTipoUsuario==1}">
+				<h:form>			  
+					<ui:repeat var="p" value="#{bean2.listaPeliculas()}">
+					   <ui:param name="usuario" value="#{bean3.conocerUsuario(p.getIdUsuario())}"/>
+						<h:commandLink actionListener="#{bean2.peliculaSelec(p)}"
+							action="pelicula.xhtml" styleClass="contenedor-link-pelicula">
+							<h:graphicImage styleClass="imagen-pelicula"
+								value="#{p.getImagen()}" style="text-transform: capitalize"
+								title="#{usuario.nombre} #{usuario.apellido}" />
+							<h:outputLabel value="#{p.getNombre()}"
+								styleClass="cabezera-text" />
+						</h:commandLink>
+					</ui:repeat>
+				</h:form>
+			</b:container>
 		<h:outputStylesheet library="css" name="inicio.css" />
 	</ui:define>
 </ui:composition>

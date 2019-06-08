@@ -34,10 +34,10 @@ public class LoginBean implements Serializable {
 			SelectItemGroup s = new SelectItemGroup("Tipo Usuario");
 			TipoUsuarioDao daoT = new TipoUsuarioDao();
 			List<Tipousuario> tipoUsuario = daoT.list();
-			SelectItem[] items= new SelectItem[tipoUsuario.size()];
-			for(int i=0; i<tipoUsuario.size(); i++){
-				items[i]=new SelectItem("" + tipoUsuario.get(i).getId(), "" + tipoUsuario.get(i).getDescripcion());
-				
+			SelectItem[] items = new SelectItem[tipoUsuario.size()];
+			for (int i = 0; i < tipoUsuario.size(); i++) {
+				items[i] = new SelectItem("" + tipoUsuario.get(i).getId(), "" + tipoUsuario.get(i).getDescripcion());
+
 			}
 			s.setSelectItems(items);
 			tipousuarios.add(s);
@@ -53,7 +53,7 @@ public class LoginBean implements Serializable {
 			if (us != null) {
 				if (usuario.getPassword().contentEquals(us.getPassword())) {
 					this.validado = us;
-                    this.usuario= new Usuariop();					
+					this.usuario = new Usuariop();
 					return "inicio?faces-redirect=true";
 				} else {
 					message = new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Contraseña Incorrecta");
@@ -81,7 +81,7 @@ public class LoginBean implements Serializable {
 			String fechaactual = annio + "-" + mes + "-" + dia;
 			usuario.setFechaRegistro(java.sql.Date.valueOf(fechaactual));
 			daoU.insert(usuario);
-			this.usuario= new Usuariop();
+			this.usuario = new Usuariop();
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success",
 					"Te registrarse correctamente ahora inicia sesion");
 		} else {
@@ -100,7 +100,7 @@ public class LoginBean implements Serializable {
 			if (usuario.getPassword().length() >= 10) {
 				us.setPassword(usuario.getPassword());
 				daoU.update(us);
-				this.usuario= new Usuariop();
+				this.usuario = new Usuariop();
 				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success",
 						"Cambiaste Correctamente la contraseña");
 			} else {
@@ -112,9 +112,6 @@ public class LoginBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		PrimeFaces.current().ajax().addCallbackParam("loggedIn", (us != null) ? true : false);
 	}
-	
-	
-	
 
 	/////////////////////////////////////////////// GETTER Y SETTERS
 	/////////////////////////////////////////////// ///////////////////////////
@@ -158,6 +155,5 @@ public class LoginBean implements Serializable {
 	public void setTipousuarios(List<SelectItem> tipousuarios) {
 		this.tipousuarios = tipousuarios;
 	}
-	
-	
+
 }

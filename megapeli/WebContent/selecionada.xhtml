@@ -7,7 +7,7 @@
 
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
-	 <f:event type="preRenderView" listener="#{security.verificarSesion()}" />
+	 <f:event type="preRenderView" listener="#{security.usuario()}"/>
 		<b:container class="contenedor-pelicula"
 			rendered="#{bean1.validado.idTipoUsuario==1}">
 			<h:form>

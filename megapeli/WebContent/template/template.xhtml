@@ -20,6 +20,14 @@
 			</f:facet>
 			<h:form>
 				<b:navbarLinks rendered="#{bean1.validado.idTipoUsuario==1}">
+					<b:dropMenu value="#{bean1.validado.nombre}"
+						styleClass="text-center">
+						<b:navCommandLink value="perfil" href="perfil.xhtml" />
+						<b:navCommandLink value="Seguir" href="seguir.xhtml" />
+						<b:navCommandLink value="cerrar sesion"
+							actionListener="#{security.cerrarSesion()}"
+							action="login?faces-redirect=true" />
+					</b:dropMenu>
 					<b:navCommandLink value="Acción" actionListener="#{bean2.accion()}" />
 					<b:navCommandLink value="Animacion"
 						actionListener="#{bean2.animacion()}" />
@@ -40,41 +48,17 @@
 					<b:navCommandLink value="Suspenso"
 						actionListener="#{bean2.suspenso()}" />
 					<b:navCommandLink value="Terror" actionListener="#{bean2.terror()}" />
-					<b:dropMenu value="dd" styleClass="text-center">
-						<b:navCommandLink value="perfil" href="perfil.xhtml" />
-						<b:navCommandLink value="Seguir" href="seguir.xhtml" />
-						<b:navCommandLink value="cerrar sesion"
-							actionListener="#{security.cerrarSesion()}" action="login?faces-redirect=true"/>
-					</b:dropMenu>
 				</b:navbarLinks>
 			</h:form>
 		</b:navBar>
 	</div>
+
 	<ui:insert name="body"></ui:insert>
-	<div class="page-footer font-small blue pt-4">
-		<div class="footer-copyright text-center py-3">2019- Sergio
-			Buitrago-Leyner Ortega</div>
+	<div class="footer-template">
+		<div class="contenedor-footer-template">
+		   <h:outputLabel value="Todos los derechos reservados | MegaPelis V1.0 |"/>
+		</div>
 	</div>
-	<style type="text/css">
-.navbar-collapse,.container-fluid {
-	background-color: white;
-	color:black;
-}
-
-.commandLink {
-  color: white;
-  text-align: center;
-}
-
-.commandLink:hover{
- opacity: 0.7;
- background: gray;
-}
-
-.navbar-brand, .fa-chevron-right{
- color: red;
- 
-}
-</style>
+	<h:outputStylesheet library="css" name="template.css" />
 </h:body>
 </html>

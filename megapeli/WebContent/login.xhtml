@@ -7,7 +7,7 @@
 
 <h:head>
 	<title>MegaPeli</title>
-	<f:event type="preRenderView" listener="#{security.verificarLogin()}" />   
+	<f:event type="preRenderView" listener="#{security.verificarLogin()}" />
 </h:head>
 <body>
 	<script type="text/javascript">
@@ -70,7 +70,7 @@
 				</div>
 			</h:form>
 		</div>
-	
+
 
 		<p:dialog header="forgot" widgetVar="dlgForgot" showEffect="explode"
 			hideEffect="explode" modal="true" styleClass="dialog">
@@ -170,6 +170,69 @@
 			</div>
 		</p:dialog>
 	</b:container>
+
+	<ui:insert name="body"></ui:insert>
+
+
+	<footer class="footer">
+	<div class="footer-container">
+		<div class="footer-main">
+			<div class="footer-columna">
+				<h:form styleClass="text-center">
+					<p:growl id="errorCorreo" sticky="true" showDetail="true"
+						life="3000" />
+					<h:outputLabel value="Suscríbete" styleClass="h3" />
+					<p:inputText placeholder="Escriba su Correo" styleClass="email"
+						validator="#{loginValidator.validarCorreo}" required="true" 
+						requiredMessage="El email es Obligatorio"/>
+					<p:commandButton value="Suscribirse" styleClass="submit"
+						update="errorCorreo" />
+				</h:form>
+			</div>
+
+			<div class="footer-columna">
+				<div class="text-center">
+					<h:outputLabel value="Dirección" styleClass="h3" />
+				</div>
+				<span class="fa fa-map-marker span"> <p:outputLabel
+						styleClass="p" value="Call 13 Av. 14 Cucúta - Colombia" />
+				</span> <span class="fa fa-phone span"><p:outputLabel styleClass="p"
+						value="(+57) 311-89-38-189" /> </span> <span class="fa fa-envelope span">
+					<p:outputLabel styleClass="p" value="megapeli@megapeli.com" />
+				</span>
+			</div>
+
+			<div class="footer-columna">
+				<div class="text-center">
+					<h:outputLabel value="Sobre Nosotros" styleClass="h3" />
+				</div>
+				<b:container styleClass="informacion">
+					<p:outputLabel styleClass="p"
+						value="Somos una empresa dedica al entretenimiento donde
+					los administradores son los que suben el contenido y los usuarios
+					pueden suscribirse a los administradores y ver su contenido." />
+				</b:container>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-copy-redes">
+		<div class="main-copy-redes">
+			<div class="footer-copy">&copy; 2019, Todos los derechos
+				reservados - | MegaPeli |.</div>
+			<div class="footer-redes">
+				<h:form>
+					<p:commandButton href="#" styleClass="red" icon="fa fa-facebook" />
+					<p:commandButton href="#" styleClass="red" icon="fa fa-twitter" />
+					<p:commandButton href="#" styleClass="red"
+						icon="fa fa-youtube-play" />
+					<p:commandButton action="https://github.com/SerBuitrago" styleClass="red" icon="fa fa-github" />
+				</h:form>
+			</div>
+		</div>
+	</div>
+	</footer>
+	<h:outputStylesheet library="css" name="template.css" />
 	<h:outputStylesheet library="css" name="login.css" />
 </body>
 </html>

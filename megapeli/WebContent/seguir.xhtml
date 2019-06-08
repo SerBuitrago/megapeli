@@ -8,8 +8,9 @@
 
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
+			<f:event type="preRenderView" listener="#{security.usuario()}" />
 		<b:container rendered="#{bean1.validado.idTipoUsuario==1}"
-		    styleClass="contenedor-tabla">
+			styleClass="contenedor-tabla">
 			<h:form>
 				<p:dataTable var="us" value="#{bean3.listaAdministradores()}"
 					styleClass="text-center tabla" id="tablaSeguir">
@@ -28,12 +29,12 @@
 							styleClass="tdR" />
 					</p:column>
 					<p:column headerText="Seguir">
-						<p:commandButton icon="fa fa-thumbs-o-down"
-							styleClass="tdR" rendered="#{bean4.esSuscriptor(us.getId())==true}"
-							action="#{bean3.dejarSeguir(us.getId())}" update="tablaSeguir"/>
-						<p:commandButton icon="fa fa-thumbs-o-up"
-							styleClass="tdR" rendered="#{bean4.esSuscriptor(us.getId())==false}" 
-							action="#{bean3.seguir(us.getId())}" update="tablaSeguir"/>
+						<p:commandButton icon="fa fa-thumbs-o-down" styleClass="tdR"
+							rendered="#{bean4.esSuscriptor(us.getId())==true}"
+							action="#{bean3.dejarSeguir(us.getId())}" update="tablaSeguir" />
+						<p:commandButton icon="fa fa-thumbs-o-up" styleClass="tdR"
+							rendered="#{bean4.esSuscriptor(us.getId())==false}"
+							action="#{bean3.seguir(us.getId())}" update="tablaSeguir" />
 					</p:column>
 				</p:dataTable>
 			</h:form>

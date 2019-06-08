@@ -17,10 +17,12 @@ import com.megapeli.jpa.dao.PeliculaDao;
 import com.megapeli.jpa.dao.PersonajeDao;
 import com.megapeli.jpa.dao.SuscripcionDao;
 import com.megapeli.jpa.dao.ActorDao;
+import com.megapeli.jpa.dao.ClasificacionDao;
 import com.megapeli.jpa.dao.ComentarioDao;
 import com.megapeli.jpa.dao.DirectorDao;
 import com.megapeli.jpa.dao.GeneroDao;
 import com.megapeli.jpa.entity.Actorp;
+import com.megapeli.jpa.entity.Clasificacionp;
 import com.megapeli.jpa.entity.Comentariop;
 import com.megapeli.jpa.entity.Directorp;
 import com.megapeli.jpa.entity.Generop;
@@ -93,6 +95,16 @@ public class PeliculaBean implements Serializable {
 			autores.add(dao.findByFieldInt("id",pe.getIdActor()));
 		}
 		selecionada=p;
+	}
+	
+	public Generop conocerGenero(int id) {
+		GeneroDao dao= new GeneroDao();
+		return (dao.findByFieldInt("id", id));
+	}
+	
+	public Clasificacionp conocerClasificacion(int id) {
+		ClasificacionDao dao= new ClasificacionDao();
+		return (dao.findByFieldInt("id", id));
 	}
 
 	/******************* PELICULA POR GENERO *********************************/

@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
 import com.megapeli.jpa.dao.PeliculaDao;
 import com.megapeli.jpa.dao.SuscripcionDao;
+import com.megapeli.jpa.dao.TipoUsuarioDao;
 import com.megapeli.jpa.dao.UsuarioDAO;
 import com.megapeli.jpa.entity.Suscripcion;
 import com.megapeli.jpa.entity.Usuariop;
@@ -27,7 +28,7 @@ public class UsuarioBean implements Serializable{
 	@ManagedProperty("#{bean2}")
 	private PeliculaBean bean2;
 
-	private Usuariop actualizar;
+	private Usuariop actualizar= new Usuariop();
 
 	public List<Suscripcion>  initSuscriptores() {		
 		if (bean1.getValidado() != null) {
@@ -94,7 +95,12 @@ public class UsuarioBean implements Serializable{
 	public void actualizarUsuario() {
 		FacesMessage message = null;
 		if (actualizar != null) {
+			if(actualizar.getApellido().length()>0) {bean1.getValidado().setApellido(actualizar.getApellido());}
+			if(actualizar.getNombre().length()>0) {bean1.getValidado().setNombre(actualizar.getNombre());}
+			if(actualizar.getEmail().length()>0) {bean1.getValidado().setEmail(actualizar.getEmail());}
+			if(actualizar.getPassword().length()>9) {bean1.getValidado().setPassword(actualizar.getPassword());}
 			UsuarioDAO daoU = new UsuarioDAO();
+			actualizar=bean1.getValidado();
 			daoU.update(actualizar);
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Actualizado Correctamente");
 		} else {
@@ -107,6 +113,11 @@ public class UsuarioBean implements Serializable{
 	public void eliminarCuenta() {
 		UsuarioDAO daoU = new UsuarioDAO();
 		daoU.delete(bean1.getValidado());
+	}
+	
+	public String tipoUsuario(int id) {
+		TipoUsuarioDao dao= new TipoUsuarioDao();
+		return (dao.findByFieldInt("id", id).getDescripcion());
 	}
 
 	public String fechaactual() {

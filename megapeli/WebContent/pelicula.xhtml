@@ -25,9 +25,14 @@
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Administrador: " styleClass="subtitulo" />
-					<h:outputLabel
+					<h:outputLabel style="text-transform: capitalize"
 						value="#{bean1.validado.nombre} #{ bean1.validado.apellido}"
 						styleClass="informacion" />
+				</div>
+				<div class="contenedor-dato">
+					<h:outputLabel value="Clasificación: " styleClass="subtitulo" />
+					<h:outputLabel value="#{bean2.conocerClasificacion(selecionada.getIdClasificacion()).getDescripcion()} "
+						styleClass="informacion" style="text-transform: capitalize"/>
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Sinopsis: " styleClass="subtitulo" />
@@ -35,9 +40,14 @@
 						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
-					<h:outputLabel value="Genero: " styleClass="subtitulo" />
-					<h:outputLabel value="#{bean2.selecionada.idGenero} "
+					<h:outputLabel value="Pais: " styleClass="subtitulo" />
+					<h:outputLabel value="#{bean2.selecionada.pais} "
 						styleClass="informacion" />
+				</div>
+				<div class="contenedor-dato">
+					<h:outputLabel value="Genero: " styleClass="subtitulo" />
+					<h:outputLabel value="#{bean2.conocerGenero(selecionada.getIdGenero()).getDescripcion()} "
+						styleClass="informacion" style="text-transform: capitalize" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Audio: " styleClass="subtitulo" />
@@ -123,13 +133,13 @@
 			rendered="#{bean1.validado.idTipoUsuario==1}">
 			<div class="contenedor-video-pelicula">
 				<div class="text-center contenedor-h22">
-					<h:outputLabel value="Feliz dia de tu muerte 2"
+					<h:outputLabel value="#{bean2.selecionada.nombre}"
 						styleClass="nombrepelicula-video" />
 				</div>
 				<div class="contenedor-video-pelicula-link">
 					<iframe width="90%" height="360" frameborder="0"
-						class="linkpelicula"
-						src="https://mega.nz/embed#!cHAwRAbI!Ql7fUMhzUG6ZHILhFG3P9lyUsd_UG5rFV542prLNixg">
+						class="linkpelicula" 
+						src="#{bean2.selecionada.link}">
 					</iframe>
 				</div>
 			</div>
@@ -144,7 +154,7 @@
 			<div class="contenedor-comentar">
 				<h:form style="text-center">
 					<div class="h2-comentar-user text-center">
-						<h:outputLabel value="Deja un comentario Sergio Buitrago"
+						<h:outputLabel value="Deja un comentario #{bean1.validado.nombre} #{ bean1.validado.apellido}"
 							styleClass="nombreUser" />
 					</div>
 					<div class="text-comentar-user">
