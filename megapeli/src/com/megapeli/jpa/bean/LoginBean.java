@@ -1,5 +1,6 @@
 package com.megapeli.jpa.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -18,7 +19,7 @@ import com.megapeli.jpa.entity.Usuariop;
 
 @ManagedBean(name = "bean1")
 @SessionScoped
-public class LoginBean {
+public class LoginBean implements Serializable {
 
 	private Usuariop usuario = new Usuariop();
 	private Usuariop validado = null;

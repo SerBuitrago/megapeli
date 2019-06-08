@@ -8,18 +8,20 @@
 
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
-		<div class="contenedor-pelicula">
-			<ui:repeat var="p" value="#{bean2.peliculas}" varStatus="lista">
-				<h:outputLink value="#{bean2.peliculaSelec(p)}" rendered="#{bean1.validado.idTipoUsuario==1}"
-				     styleClass="contenedor-link-pelicula">
-					<p:graphicImage styleClass="imagen-pelicula"
-						value="#{bean2.peliculas.get(0).foto}"
-						title="#{p.getPelicula().getFechalanzamiento().getDate()}" />
-						<h:outputLabel value="#{p.getPelicula().getNombre()}"
-						styleClass="cabezera-text" />
-				</h:outputLink>		
-			</ui:repeat>
-		</div>
+		<b:container class="contenedor-pelicula"
+			rendered="#{bean1.validado.idTipoUsuario==1}">
+			<h:form>
+				<ui:repeat var="p" value="#{bean2.listaPeliculas()}">
+					<h:commandLink actionListener="#{bean2.peliculaSelec(p)}" action="pelicula.xhtml"
+						styleClass="contenedor-link-pelicula">
+						<h:graphicImage styleClass="imagen-pelicula"
+							value="#{p.getImagen()}"
+							title="#{p.getFechalanzamiento().getDate()}" />
+						<h:outputLabel value="#{p.getNombre()}" styleClass="cabezera-text" />
+					</h:commandLink>
+				</ui:repeat>
+			</h:form>
+		</b:container>
 		<h:outputStylesheet library="css" name="inicio.css" />
 	</ui:define>
 </ui:composition>

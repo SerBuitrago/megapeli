@@ -1,89 +1,98 @@
 package com.megapeli.jpa.bean;
 
-import java.io.ByteArrayInputStream;
+//import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+//import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.model.DefaultStreamedContent;
+//import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import com.megapeli.jpa.dao.PeliculaDao;
 import com.megapeli.jpa.dao.PersonajeDao;
 import com.megapeli.jpa.dao.SuscripcionDao;
 import com.megapeli.jpa.dao.ActorDao;
+import com.megapeli.jpa.dao.ComentarioDao;
 import com.megapeli.jpa.dao.DirectorDao;
-//import com.megapeli.jpa.dao.ComentarioDao;
 import com.megapeli.jpa.dao.GeneroDao;
-//import com.megapeli.jpa.entity.Comentariop;
+import com.megapeli.jpa.entity.Actorp;
+import com.megapeli.jpa.entity.Comentariop;
+import com.megapeli.jpa.entity.Directorp;
 import com.megapeli.jpa.entity.Generop;
-import com.megapeli.jpa.entity.Pelicula;
 import com.megapeli.jpa.entity.Peliculap;
 import com.megapeli.jpa.entity.Personaje;
-import com.megapeli.jpa.entity.Personajep;
 import com.megapeli.jpa.entity.Suscripcion;
 
 @ManagedBean(name = "bean2")
 @SessionScoped
-public class PeliculaBean {
+public class PeliculaBean implements Serializable {
 
 	@ManagedProperty("#{bean1}")
 	private LoginBean bean1;
 
-	private List<Pelicula> peliculas;
+	private List<Peliculap> peliculas;
+	private Peliculap selecionada;
+	private List<Peliculap> peliculagenero;
+	private StreamedContent imagenPelicula;
+	
+	private List<Actorp> autores;
+	private List<Personaje> personajes;
 
-	private Pelicula selecionada;
-
-	private List<Pelicula> peliculagenero;
-
-	@PostConstruct
-	public void intPeliculas() {
-		if (peliculas == null || peliculas.size()==0) {
+	public List<Peliculap> listaPeliculas() {
+		if (peliculas == null) {
 			peliculas = new ArrayList<>();
 			PeliculaDao daoP = new PeliculaDao();
 			SuscripcionDao daoS = new SuscripcionDao();
 			List<Suscripcion> suscripcion = new ArrayList<>();
 
 			suscripcion = daoS.findByFieldListInt("idUsuario", bean1.getValidado().getId());
-			
+
 			for (int i = 0; i < suscripcion.size(); i++) {
 				List<Peliculap> tmp = new ArrayList<>();
 				tmp = daoP.findByFieldListInt("idUsuario", suscripcion.get(i).getIdSuscripto());
 				for (int j = 0; j < tmp.size(); j++) {
-					Pelicula pelicula = new Pelicula();
-					pelicula.setPelicula(tmp.get(j));
-					if(pelicula.getPelicula()!=null) {
-						InputStream input = new ByteArrayInputStream(pelicula.getPelicula().getImagen());
-						pelicula.setFoto(new DefaultStreamedContent(input, "image/jpg"));
-					  System.out.print(""+pelicula.getFoto().hashCode());
-						peliculas.add(pelicula);
-					}				
+					peliculas.add(tmp.get(j));
 				}
 			}
 		}
+		return peliculas;
 	}
 
-	public String peliculaSelec(Pelicula p) {
-		this.selecionada = p;
-		//ComentarioDao daoC = new ComentarioDao();
-		ActorDao daoA = new ActorDao();
-		PersonajeDao daoPe = new PersonajeDao();
-		DirectorDao daoD= new DirectorDao();
-		selecionada.setDirector(daoD.findByFieldInt("id", p.getPelicula().getIdDirector()));
-		// selecionada.setComentarios(daoC.findByFieldListInt("idPelicula",
-		// p.getPelicula().getId()));
+	public Directorp directorPelicula(int idDirector) {
+		Directorp d = new Directorp();
+		DirectorDao dao = new DirectorDao();
+		d = dao.findByFieldInt("id", idDirector);
+		return d;
+	}
 
-		List<Personaje> personajes = daoPe.findByFieldListInt("idPelicula", p.getPelicula().getId());
-		for (Personaje pe : personajes) {
-			Personajep per = new Personajep();
-			per.setActor(daoA.find(pe.getIdActor()));
-			per.setPersonaje(pe);
-			selecionada.getPersonajes().add(per);
+	public List<Personaje> listaPersonajePelicula(int idPelicula) {
+		personajes = new ArrayList<>();
+		PersonajeDao dao = new PersonajeDao();
+		personajes= dao.findByFieldListInt("idPelicula", idPelicula);
+		return personajes;
+	}
+
+	public List<Comentariop> listaComentarioPelicula(int idPelicula) {
+		List<Comentariop> c = new ArrayList<>();
+		ComentarioDao dao = new ComentarioDao();
+		c = dao.findByFieldListInt("idPelicula", idPelicula);
+		return c;
+	}
+
+	public void peliculaSelec(Peliculap p) {
+		this.selecionada = new Peliculap();
+		this.autores= new ArrayList<>();
+		this.listaPersonajePelicula(p.getId());
+		ActorDao dao = new ActorDao();
+		for(Personaje pe: personajes) {
+			autores.add(dao.findByFieldInt("id",pe.getIdActor()));
 		}
-		return "pelicula.xhtml";
+		selecionada=p;
 	}
 
 	/******************* PELICULA POR GENERO *********************************/
@@ -220,34 +229,25 @@ public class PeliculaBean {
 		}
 	}
 
+
 	private void recursivo(String genero) {
-		List<Pelicula> tmp = this.peliculas;
+		List<Peliculap> tmp = this.peliculas;
 		peliculagenero = new ArrayList<>();
-		Generop g = new Generop();
 		GeneroDao daoG = new GeneroDao();
-		g = daoG.findByField("descripcion", genero);
-		System.out.print("" + genero + "\nid: " + g.getId());
-		for (Pelicula p : tmp) {
-			if (p.getPelicula().getIdGenero() == g.getId()) {
-				Pelicula pelicula = new Pelicula();
-				pelicula.setPelicula(p.getPelicula());
-				InputStream input = new ByteArrayInputStream(pelicula.getPelicula().getImagen());
-				pelicula.setFoto(new DefaultStreamedContent(input, "image/jpg"));
-				peliculagenero.add(pelicula);
+		Generop g = daoG.findByField("descripcion", genero);
+		for (Peliculap p : tmp) {
+			if (p.getIdGenero() == g.getId()) {
+				peliculagenero.add(p);
 			}
 		}
 	}
-	
-	public void cerrarSesion() {
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-	}
 /////////////////////////////////////////////// GETTER Y SETTERS ///////////////////////////
 
-	public List<Pelicula> getPeliculas() {
+	public List<Peliculap> getPeliculas() {
 		return peliculas;
 	}
 
-	public void setPeliculas(List<Pelicula> peliculas) {
+	public void setPeliculas(List<Peliculap> peliculas) {
 		this.peliculas = peliculas;
 	}
 
@@ -259,19 +259,50 @@ public class PeliculaBean {
 		this.bean1 = bean1;
 	}
 
-	public Pelicula getSelecionada() {
+	public Peliculap getSelecionada() {
 		return selecionada;
 	}
 
-	public void setSelecionada(Pelicula selecionada) {
+	public void setSelecionada(Peliculap selecionada) {
 		this.selecionada = selecionada;
 	}
 
-	public List<Pelicula> getPeliculagenero() {
+	public List<Peliculap> getPeliculagenero() {
 		return peliculagenero;
 	}
 
-	public void setPeliculagenero(List<Pelicula> peliculagenero) {
+	public void setPeliculagenero(List<Peliculap> peliculagenero) {
 		this.peliculagenero = peliculagenero;
 	}
+
+	public StreamedContent getImagenPelicula() {
+		return imagenPelicula;
+	}
+
+	public void setImagenPelicula(StreamedContent imagen) {
+		this.imagenPelicula = imagen;
+	}
+
+	public List<Actorp> getAutores() {
+		return autores;
+	}
+
+	public void setAutores(List<Actorp> autores) {
+		this.autores = autores;
+	}
+
+	public List<Personaje> getPersonajes() {
+		return personajes;
+	}
+
+	public void setPersonajes(List<Personaje> personajes) {
+		this.personajes = personajes;
+	}
+
+	/*
+	 * public StreamedContent imagenPelicula() { 
+	 * PeliculaDao daoP = new PeliculaDao(); 
+	 * InputStream input = new  ByteArrayInputStream(daoP.find(1).getImagen());
+	 * imagenPelicula= (new DefaultStreamedContent(input, "image/jpg")); return imagenPelicula; }
+	 */
 }

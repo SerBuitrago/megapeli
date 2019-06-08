@@ -2,10 +2,12 @@ package com.megapeli.jpa.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
@@ -16,7 +18,7 @@ import com.megapeli.jpa.entity.Suscripcion;
 import com.megapeli.jpa.entity.Usuariop;
 
 @ManagedBean(name = "bean3")
-@SessionScoped
+@RequestScoped
 public class UsuarioBean implements Serializable{
 
 	@ManagedProperty("#{bean1}")
@@ -43,6 +45,7 @@ public class UsuarioBean implements Serializable{
 		List<Usuariop> usuario= new ArrayList<>();
 		UsuarioDAO dao= new UsuarioDAO();
 		usuario=dao.findByFieldListInt("idTipoUsuario", 2);
+		
 		return usuario;
 	}
 	
@@ -53,20 +56,39 @@ public class UsuarioBean implements Serializable{
 		return u;
 	}
 	
-	public int peliculasPublicadas(int id) {
-		PeliculaDao daoP= new PeliculaDao();
-		return daoP.findByFieldListInt("idUsuario", id).size();
+	public Suscripcion conocerSuscriptor(int id) {
+		List<Suscripcion> s= initSuscriptores();
+		for(Suscripcion tmp:s) {
+			if(tmp.getIdSuscripto()==id) {
+				return tmp;
+			}
+		}
+		return null;
 	}
-
+	
+	
 	public void dejarSeguir(Suscripcion s) {
 		SuscripcionDao daoS = new SuscripcionDao();
 		daoS.delete(s);
 		bean2.setPeliculas(null);
 	}
-
-	public void seguir(Suscripcion s) {
+	
+	public void dejarSeguir(int id) {
 		SuscripcionDao daoS = new SuscripcionDao();
+		Suscripcion s=conocerSuscriptor(id);
+		daoS.delete(s);
+		bean2.setPeliculas(null);
+	}
+	
+
+	public void seguir(int id) {
+		SuscripcionDao daoS = new SuscripcionDao();	
+		Suscripcion s= new Suscripcion();
+		s.setIdSuscripto(id);
+		s.setIdUsuario(bean1.getValidado().getId());
+		s.setFechaSuscripcion(java.sql.Date.valueOf(fechaactual()));
 		daoS.insert(s);
+		bean2.setPeliculas(null);
 	}
 
 	public void actualizarUsuario() {
@@ -87,6 +109,16 @@ public class UsuarioBean implements Serializable{
 		daoU.delete(bean1.getValidado());
 	}
 
+	public String fechaactual() {
+		Calendar c = Calendar.getInstance();
+		String dia = Integer.toString(c.get(Calendar.DATE));
+		String mes = Integer.toString(c.get(Calendar.MONTH) + 1);
+		String annio = Integer.toString(c.get(Calendar.YEAR));
+		int tmp = Integer.parseInt(mes);
+		mes = (tmp < 10) ? "0" + tmp : "" + tmp;
+		String fechaactual = annio + "-" + mes + "-" + dia;
+		return fechaactual;
+	}
 ////////////////////////////////////GETTER Y SETTERS //////////////////////////////////// /////////////////////////////////////////
 
 	public LoginBean getBean1() {
@@ -111,5 +143,5 @@ public class UsuarioBean implements Serializable{
 
 	public void setBean2(PeliculaBean bean2) {
 		this.bean2 = bean2;
-	}	
+	}
 }

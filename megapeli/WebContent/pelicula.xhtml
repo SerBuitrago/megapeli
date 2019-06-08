@@ -7,51 +7,63 @@
 
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
+		<ui:param name="selecionada" value="#{bean2.selecionada}" />
 
-		<div class="contenedor-pelicula-seleccionada">
+		<b:container class="contenedor-pelicula-seleccionada"
+			rendered="#{bean1.validado.idTipoUsuario==1}">
 			<h:outputLink styleClass="contenedor-pelicula-img"
 				value="javascript:void(0)" onclick="PF('dlgVideo').show();">
-				<p:graphicImage value="#{bean2.selecionada.foto}" styleClass="img"
+				<p:graphicImage value="#{bean2.selecionada.imagen}" styleClass="img"
 					title="Ver pelicula" />
 			</h:outputLink>
 
 			<div class="contenedor-pelicula-info">
 
 				<div class="text-center contenedor-h2">
-					<h:outputText value="#{bean2.selecionada.pelicula.nombre}"
+					<h:outputText value="#{bean2.selecionada.nombre}"
 						styleClass="nombrepelicula" />
 				</div>
 				<div class="contenedor-dato">
+					<h:outputLabel value="Administrador: " styleClass="subtitulo" />
+					<h:outputLabel
+						value="#{bean1.validado.nombre} #{ bean1.validado.apellido}"
+						styleClass="informacion" />
+				</div>
+				<div class="contenedor-dato">
 					<h:outputLabel value="Sinopsis: " styleClass="subtitulo" />
-					<h:outputLabel value="#{bean2.selecionada.pelicula.sinopsis} "
+					<h:outputLabel value="#{bean2.selecionada.sinopsis} "
 						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Genero: " styleClass="subtitulo" />
-					<h:outputLabel value="#{bean2.selecionada.pelicula.idGenero} "
+					<h:outputLabel value="#{bean2.selecionada.idGenero} "
 						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Audio: " styleClass="subtitulo" />
-					<h:outputLabel value="#{bean2.selecionada.pelicula.idioma} "
+					<h:outputLabel value="#{bean2.selecionada.idioma} "
 						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Calidad: " styleClass="subtitulo" />
-					<h:outputLabel value="#{bean2.selecionada.pelicula.calidad}"
+					<h:outputLabel value="#{bean2.selecionada.calidad}"
+						styleClass="informacion" />
+				</div>
+				<div class="contenedor-dato">
+					<h:outputLabel value="Fecha Lanzamiento: " styleClass="subtitulo" />
+					<h:outputLabel value="#{bean2.selecionada.fechalanzamiento}"
 						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
 					<h:outputLabel value="Director: " styleClass="subtitulo" />
-					<h:outputLabel value="#{bean2.selecionada.director.nombre}"
+					<h:outputLabel
+						value="#{bean2.directorPelicula(selecionada.getIdDirector()).getNombre()}"
 						styleClass="informacion" />
 				</div>
 				<div class="contenedor-dato">
-					<h:outputLabel value="Actores: " styleClass="subtitulo" />
-					<ui:repeat var="personaje" value="#{bean2.selecionada.personajes}" varStatus="p">
-						<h:outputLabel
-							value="#{personaje.getActor().getNombre()}"
-							styleClass="informacion" />
+					<h:outputLabel value="Autores: " styleClass="subtitulo" />
+					<ui:repeat var="a" value="#{bean2.autores}">
+						<h:outputLabel value="#{a.nombre}" styleClass="informacion" />
 					</ui:repeat>
 				</div>
 				<div class="contenedor-dato">
@@ -60,9 +72,10 @@
 			        </h:outputLink>
 				</div>
 			</div>
-		</div>
+		</b:container>
 
-		<div class="contenedor-comentario">
+		<b:container class="contenedor-comentario"
+			rendered="#{bean1.validado.idTipoUsuario==1}">
 			<h:outputLink onclick="PF('dlgComentar').show();"
 				title="añada un comentario :)" styleClass="linkcomentario"
 				value="javascript:void(0)"> ¿Quieres añadir un comentario? </h:outputLink>
@@ -101,12 +114,13 @@
 					<h:outputLabel value="2019-02-01" styleClass="fecha-publicacion" />
 				</div>
 			</div>
-		</div>
+		</b:container>
 
 
 
 		<p:dialog header="video" widgetVar="dlgVideo" showEffect="explode"
-			hideEffect="explode" modal="true" styleClass="dialog">
+			hideEffect="explode" modal="true" styleClass="dialog"
+			rendered="#{bean1.validado.idTipoUsuario==1}">
 			<div class="contenedor-video-pelicula">
 				<div class="text-center contenedor-h22">
 					<h:outputLabel value="Feliz dia de tu muerte 2"
@@ -125,7 +139,7 @@
 
 		<p:dialog header="comentar" widgetVar="dlgComentar"
 			showEffect="explode" hideEffect="explode" modal="true"
-			styleClass="dialog2">
+			styleClass="dialog2" rendered="#{bean1.validado.idTipoUsuario==1}">
 			<p:growl id="errorP" sticky="true" showDetail="true" life="3000" />
 			<div class="contenedor-comentar">
 				<h:form style="text-center">

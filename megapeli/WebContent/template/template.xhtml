@@ -26,7 +26,7 @@
 					<b:navCommandLink value="Aventura"
 						actionListener="#{bean2.aventura()}" />
 					<b:navCommandLink value="Ciencia Ficción"
-						actionListener="#{bean2.cienciaFiccion()}"></b:navCommandLink>
+						actionListener="#{bean2.cienciaFiccion()}" />
 					<b:navCommandLink value="Comedia"
 						actionListener="#{bean2.comedia()}" />
 					<b:navCommandLink value="Crimen" actionListener="#{bean2.crimen()}" />
@@ -41,9 +41,10 @@
 						actionListener="#{bean2.suspenso()}" />
 					<b:navCommandLink value="Terror" actionListener="#{bean2.terror()}" />
 					<b:dropMenu value="dd" styleClass="text-center">
-						<b:navCommandLink value="perfil" href="perfil.xhtml"/>
-						<b:navCommandLink value="Seguir" href="seguir.xhtml"/>
-						<b:navCommandLink value="cerrar sesion" actionListener="#{bean2.cerrarSesion()}"/>
+						<b:navCommandLink value="perfil" href="perfil.xhtml" />
+						<b:navCommandLink value="Seguir" href="seguir.xhtml" />
+						<b:navCommandLink value="cerrar sesion"
+							actionListener="#{security.cerrarSesion()}" action="login?faces-redirect=true"/>
 					</b:dropMenu>
 				</b:navbarLinks>
 			</h:form>
@@ -54,5 +55,26 @@
 		<div class="footer-copyright text-center py-3">2019- Sergio
 			Buitrago-Leyner Ortega</div>
 	</div>
+	<style type="text/css">
+.navbar-collapse,.container-fluid {
+	background-color: white;
+	color:black;
+}
+
+.commandLink {
+  color: white;
+  text-align: center;
+}
+
+.commandLink:hover{
+ opacity: 0.7;
+ background: gray;
+}
+
+.navbar-brand, .fa-chevron-right{
+ color: red;
+ 
+}
+</style>
 </h:body>
 </html>

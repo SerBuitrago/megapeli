@@ -34,8 +34,7 @@ public class Peliculap implements Serializable {
 
 	private int idUsuario;
 
-	@Lob
-	private byte[] imagen;
+	private String imagen;
 
 	private String link;
 
@@ -115,11 +114,11 @@ public class Peliculap implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
-	public byte[] getImagen() {
+	public String getImagen() {
 		return this.imagen;
 	}
 
-	public void setImagen(byte[] imagen) {
+	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
 
