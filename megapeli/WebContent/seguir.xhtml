@@ -8,7 +8,7 @@
 
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
-			<f:event type="preRenderView" listener="#{security.usuario()}" />
+		<f:event type="preRenderView" listener="#{security.usuario()}" />
 		<b:container rendered="#{bean1.validado.idTipoUsuario==1}"
 			styleClass="contenedor-tabla">
 			<h:form>
@@ -21,8 +21,8 @@
 						<h:outputText value="#{us.getApellido()}" styleClass="tdR" />
 					</p:column>
 					<p:column headerText="Peliculas Publicadas">
-						<h:outputText value="#{bean4.peliculasPublicadas(us.getId())}"
-							styleClass="tdR" />
+							<h:outputText value="#{bean4.peliculasPublicadas(us.getId())}"  
+								styleClass="tdR"/>
 					</p:column>
 					<p:column headerText="Seguidores">
 						<h:outputText value="#{bean4.seguidores(us.getId())}"
@@ -38,7 +38,7 @@
 					</p:column>
 				</p:dataTable>
 			</h:form>
-		</b:container>
+		</b:container>		
 		<h:outputStylesheet library="css" name="perfil.css" />
 	</ui:define>
 </ui:composition>

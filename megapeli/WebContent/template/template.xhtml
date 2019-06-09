@@ -19,6 +19,7 @@
 				<span class="fa fa-chevron-right"></span>
 			</f:facet>
 			<h:form>
+
 				<b:navbarLinks rendered="#{bean1.validado.idTipoUsuario==1}">
 					<b:dropMenu value="#{bean1.validado.nombre}"
 						styleClass="text-center">
@@ -49,6 +50,31 @@
 						actionListener="#{bean2.suspenso()}" />
 					<b:navCommandLink value="Terror" actionListener="#{bean2.terror()}" />
 				</b:navbarLinks>
+
+
+
+				<b:navbarLinks rendered="#{bean1.validado.idTipoUsuario==2}">
+					<b:dropMenu value="#{bean1.validado.nombre}"
+						styleClass="text-center">
+						<b:navCommandLink value="perfil" href="perfil.xhtml" />
+						<b:navCommandLink value="cerrar sesion"
+							actionListener="#{security.cerrarSesion()}"
+							action="login?faces-redirect=true" />
+					</b:dropMenu>
+					<b:navCommandLink value="Suscriptores"
+						actionListener="inicio.xhtml" />
+					<b:navCommandLink value="Peliculas" action="selecionada.xhtml" />
+					<b:navCommandLink value="Subir Pelicula" action="subir.xhtml" />
+					<b:navCommandLink value="Registrar Actor"
+					    actionListener="#{bean5.registroActor()}" />
+					<b:navCommandLink value="Registrar Director"
+					    actionListener="#{bean5.registroDirector()}" />
+					<b:navCommandLink value="Personaje" 
+					   actionListener="#{bean5.registroPersonaje()}" />
+					<b:navCommandLink value="Publicidad" actionListener="inicio.xhtml" />
+					<b:navCommandLink value="Gestor Visitas" actionListener="inicio.xhtml" />
+					<b:navCommandLink value="Pagos" actionListener="inicio.xhtml" />					
+				</b:navbarLinks>
 			</h:form>
 		</b:navBar>
 	</div>
@@ -56,7 +82,8 @@
 	<ui:insert name="body"></ui:insert>
 	<div class="footer-template">
 		<div class="contenedor-footer-template">
-		   <h:outputLabel value="Todos los derechos reservados | MegaPelis V1.0 |"/>
+			<h:outputLabel
+				value="Todos los derechos reservados | MegaPelis V1.0 |" />
 		</div>
 	</div>
 	<h:outputStylesheet library="css" name="template.css" />

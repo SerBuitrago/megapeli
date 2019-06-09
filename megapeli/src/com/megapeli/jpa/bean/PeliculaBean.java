@@ -11,11 +11,15 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
+
 //import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import com.megapeli.jpa.dao.PeliculaDao;
 import com.megapeli.jpa.dao.PersonajeDao;
 import com.megapeli.jpa.dao.SuscripcionDao;
+import com.megapeli.jpa.dao.TipoUsuarioDao;
 import com.megapeli.jpa.dao.ActorDao;
 import com.megapeli.jpa.dao.ClasificacionDao;
 import com.megapeli.jpa.dao.ComentarioDao;
@@ -29,6 +33,7 @@ import com.megapeli.jpa.entity.Generop;
 import com.megapeli.jpa.entity.Peliculap;
 import com.megapeli.jpa.entity.Personaje;
 import com.megapeli.jpa.entity.Suscripcion;
+import com.megapeli.jpa.entity.Tipousuario;
 
 @ManagedBean(name = "bean2")
 @SessionScoped
@@ -41,6 +46,7 @@ public class PeliculaBean implements Serializable {
 	private Peliculap selecionada;
 	private List<Peliculap> peliculagenero;
 	private StreamedContent imagenPelicula;
+	
 	
 	private List<Actorp> autores;
 	private List<Personaje> personajes;
@@ -63,6 +69,66 @@ public class PeliculaBean implements Serializable {
 			}
 		}
 		return peliculas;
+	}
+	
+	public List<SelectItem> generos(){
+		List<SelectItem> item= new ArrayList<>();
+		SelectItemGroup s = new SelectItemGroup("Tipo Genero");
+		GeneroDao daoT = new GeneroDao();
+		List<Generop> g = daoT.list();
+		SelectItem[] items = new SelectItem[g.size()];
+		for (int i = 0; i < g.size(); i++) {
+			items[i] = new SelectItem("" + g.get(i).getId(), "" + g.get(i).getDescripcion());
+
+		}
+		s.setSelectItems(items);
+		item.add(s);
+		return item;
+	}
+	
+	public List<SelectItem> directores(){
+		List<SelectItem> item= new ArrayList<>();
+		SelectItemGroup s = new SelectItemGroup("Seleccione Director");
+		DirectorDao daoT = new DirectorDao();
+		List<Directorp> g = daoT.list();
+		SelectItem[] items = new SelectItem[g.size()];
+		for (int i = 0; i < g.size(); i++) {
+			items[i] = new SelectItem("" + g.get(i).getId(), "" + g.get(i).getNombre());
+
+		}
+		s.setSelectItems(items);
+		item.add(s);
+		return item;
+	}
+	
+	public List<SelectItem> personajes(){
+		List<SelectItem> item= new ArrayList<>();
+		SelectItemGroup s = new SelectItemGroup("Seleccione Director");
+		PersonajeDao daoT = new PersonajeDao();
+		List<Personaje> g = daoT.list();
+		SelectItem[] items = new SelectItem[g.size()];
+		ActorDao dao= new ActorDao();
+		for (int i = 0; i < g.size(); i++) {			
+			items[i] = new SelectItem("" + g.get(i).getId(), "" +dao.findByFieldInt("id", g.get(i).getIdActor()).getNombre());
+		}
+		s.setSelectItems(items);
+		item.add(s);
+		return item;
+	}
+	
+	public List<SelectItem> clasificaciones(){
+		List<SelectItem> item= new ArrayList<>();
+		SelectItemGroup s = new SelectItemGroup("Tipo Clasificación");
+		ClasificacionDao daoT = new ClasificacionDao();
+		List<Clasificacionp> g = daoT.list();
+		SelectItem[] items = new SelectItem[g.size()];
+		for (int i = 0; i < g.size(); i++) {
+			items[i] = new SelectItem("" + g.get(i).getId(), "" + g.get(i).getDescripcion());
+
+		}
+		s.setSelectItems(items);
+		item.add(s);
+		return item;
 	}
 
 	public Directorp directorPelicula(int idDirector) {
@@ -310,6 +376,10 @@ public class PeliculaBean implements Serializable {
 	public void setPersonajes(List<Personaje> personajes) {
 		this.personajes = personajes;
 	}
+
+
+	
+	
 
 	/*
 	 * public StreamedContent imagenPelicula() { 

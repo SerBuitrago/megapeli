@@ -18,6 +18,9 @@ public class Peliculap implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	private Date fechalanzamiento;
+	
+	@Temporal(TemporalType.DATE)
+	private Date fechapublicacion;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -152,5 +155,13 @@ public class Peliculap implements Serializable {
 
 	public void setSinopsis(String sinopsis) {
 		this.sinopsis = sinopsis;
+	}
+
+	public Date getFechapublicacion() {
+		return fechapublicacion;
+	}
+
+	public void setFechapublicacion(Date fechapublicacion) {
+		this.fechapublicacion = fechapublicacion;
 	}
 }

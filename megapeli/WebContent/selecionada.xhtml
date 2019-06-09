@@ -7,13 +7,12 @@
 
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
-	 <f:event type="preRenderView" listener="#{security.usuario()}"/>
 		<b:container class="contenedor-pelicula"
 			rendered="#{bean1.validado.idTipoUsuario==1}">
 			<h:form>
 				<ui:repeat var="p" value="#{bean2.peliculagenero}" varStatus="lista">
-					<h:commandLink actionListener="#{bean2.peliculaSelec(p)}"  action="pelicula.xhtml"
-						styleClass="contenedor-link-pelicula">
+					<h:commandLink actionListener="#{bean2.peliculaSelec(p)}"
+						action="pelicula.xhtml" styleClass="contenedor-link-pelicula">
 						<p:graphicImage styleClass="imagen-pelicula"
 							value="#{p.getImagen()}"
 							title="#{p.getFechalanzamiento().getDate()}" />
@@ -22,7 +21,39 @@
 				</ui:repeat>
 			</h:form>
 		</b:container>
+
+		<b:container rendered="#{bean1.validado.idTipoUsuario==2}"
+			styleClass="contenedor-tabla">
+			<h:outputLabel value="Peliculas Subidas...." styleClass="sigiendo" />
+			<h:form>
+				<p:dataTable id="tablaPeliculas" var="peli"
+					value="#{bean4.listaPeliculas(bean1.validado.id)}" styleClass="text-center tabla"
+					emptyMessage="No hay resultados ......">
+					<ui:param name="nombre" value="#{peli.getNombre()}" />
+					<ui:param name="genero"
+						value="#{bean2.conocerGenero(peli.getIdGenero()).getDescripcion()}" />
+					<p:column headerText="Nombre" filterBy="#{nombre}"
+						filterMatchMode="contains">
+						<h:outputText value="#{nombre}" styleClass="tdR" />
+					</p:column>
+					<p:column headerText="Genero" filterBy="#{genero}"
+						filterMatchMode="contains">
+						<h:outputText value="#{genero}" styleClass="tdR" />
+					</p:column>
+					<p:column headerText="Fecha Publicación">
+						<h:outputText styleClass="tdR"
+							value="#{peli.getFechalanzamiento()}" />
+					</p:column>
+					<p:column headerText="Opción">
+						<p:commandButton icon="fa fa-trash-o" title="Eliminar"
+							action="#{bean4.eliminarPelicula(peli)}" update="tablaPeliculas" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</b:container>
+
 		<h:outputStylesheet library="css" name="inicio.css" />
+		<h:outputStylesheet library="css" name="perfil.css" />
 	</ui:define>
 </ui:composition>
 </html>
